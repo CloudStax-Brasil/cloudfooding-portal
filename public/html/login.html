@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/login.css" />
+    <link rel="icon" href="./assets/favicon/favicon.ico">
+    <title>Login e Cadastro</title>
+  </head>
+  <body>
+    
+    <!-- Tela de Login -->
+    <div class="container">
+      <div class="formularioContainer">
+        <div class="login-cadastro">
+          <form action="#" class="formularioLogin">
+            <a href="./index.html">
+            <img src="../assets/img/Logos/footer_logo.png" alt="" class="logoLogin" >
+          </a>
+            <h2 class="title">Login</h2>
+            <!-- Div do input de usuario no Login-->
+            <div class="divInput">
+                <i class="fas fa-user"></i>
+              <input type="text" placeholder="Usuario" />
+            </div>
+            <!-- Div do input da senha no Login-->
+            <div class="divInput">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Senha" />
+            </div>
+            <input type="submit" value="Login" class="btn solid" />
+           
+          </form>
+
+          <!-- Tela de cadastro-->
+          <form action="#" id="cadastro" class="formularioCadastro">
+            <a href="./index.html">
+              <img src="../assets/img/Logos/footer_logo.png" alt="" class="logoCadastro" >
+            </a>
+            <h2 class="title">Cadastrar</h2>
+            <!-- Div do input do nome do cadastro-->
+            <div class="divInput">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Nome" />
+            </div>
+             <!-- Div do input do email do cadastro-->
+            <div class="divInput">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" />
+            </div>
+            <!-- Div do input da senha do cadastro-->
+            <div class="divInput">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Senha" />
+            </div>
+            <input type="submit" class="btn solid" value="Cadastrar" />
+          </form>
+        </div>
+      </div>
+
+
+      <!-- Painel da esquerda da tela de login-->
+      <div class="painelContainer">
+        <div class="panel painelEsquerda">
+          <div class="content">
+            <h3>Você é novo por aqui ?</h3>
+            <p>
+             Se cadastre em nosso sistema pelo botão abaixo para começar
+             a usar nossos serviços!
+            </p>
+            <button class="btn transparent" id="btnCadastrar">
+              Cadastrar
+            </button>
+          </div>
+        </div>
+        <!-- Painel da direita da tela de cadastro-->
+        <div class="panel painelDireita">
+          <div class="content">
+            <h3>Já é um de nós ?</h3>
+            <p>
+              Faça o login em nosso site para ter acesso
+              a todos os serviços que disponibilizamos
+            </p>
+            <button class="btn transparent" id="btnLogin">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+  </body>
+</html>
+
+<script>
+
+  // Animações de transição da tela de login e cadastro
+const btnLogin = document.querySelector("#btnLogin");
+const btnCadastrar = document.querySelector("#btnCadastrar");
+const container = document.querySelector(".container");
+
+btnCadastrar.addEventListener("click", () => {
+  container.classList.add("sign-up-mode");
+});
+
+btnLogin.addEventListener("click", () => {
+  container.classList.remove("sign-up-mode");
+});
+
+</script>
