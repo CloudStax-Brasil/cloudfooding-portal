@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="shortcut icon" href="../assets/img/Logos/favicon.ico" type="image/x-icon">
+    <script src="../assets/js/chart.js"></script>
+    <script src="https://kit.fontawesome.com/c0977e9452.js" crossorigin="anonymous"></script>
+    <title>CloudFooding</title>
+</head>
+
+<body>
+    <div class="main_container">
+        <div class="header">
+            <div class="header_logo">
+                <img src="../assets/img/Logos/header_logo.png">
+            </div>
+            <div class="header_navbar">
+                <ul class="navbar">
+                    <li class="header"><a class="header_select" href="#">Franquias</a></li>
+                    <li class="header"><a class="header_select" href="#">Gráficos</a></li>
+                    <li class="header"><a class="header_select" href="#">Configurações</a></li>
+                    <li class="header"><a class="action_button" href="login.html">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="body_content">
+
+            <div class="center">
+                <h2>Gráficos</h2>
+                
+                <div class="dashboards-group">
+                    <div class="dashboard">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+    
+                <div class="dashboards-group">
+                    <div class="dashboard">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+                    
+                <div class="dashboards-group">
+                    <div class="dashboard">
+                        <canvas id="myChart3"></canvas>
+                    </div>
+                </div>
+
+                <div class="dashboards-group">
+                    <div class="dashboard">
+                        <canvas id="myChart4"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <div class="mini_container footer_logo_container">
+                    <img src="../assets/img/Logos/footer_logo.png">
+                </div>
+                <div class="yellow_bar"></div>
+                <div class="mini_container social_media_container">
+                    <div class="links">
+                        <a id="link-logo" href="" class="link">
+                            <i class="fa-brands fa-facebook"></i>
+                            <span class="link_txt">/cloudfooding</span>
+                        </a>
+                        <a href="" class="link">
+                            <i class="fa-brands fa-instagram"></i>
+                            <span class="link_txt">@cloudfooding</span>
+                        </a>
+                        <a href="" class="link">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span class="link_txt">contato@cloudfooding.com</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="yellow_bar"></div>
+                <div class="mini_container links_container">
+                    <div class="links">
+
+                        <a href="" class="link">
+                            <i class="fa-solid fa-users-line"></i>
+                            <span class="link_txt">Quem somos</span>
+                        </a>
+                        <a href="" class="link">
+                            <i class="fa-solid fa-book"></i>
+                            <span class="link_txt">Nossos produtos</span>
+                        </a>
+                        <a href="" class="link">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            <span class="link_txt">Cadastre-se ou entre</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="yellow_bar"></div>
+                <div class="mini_container copyrights_container">
+                    <span class="copyrights">Todos os direitos reservados.<br>
+                        © CloudStax, desde 2022</span>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    const myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctx3 = document.getElementById('myChart3').getContext('2d');
+    const myChart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctx4 = document.getElementById('myChart4').getContext('2d');
+    const myChart4 = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
