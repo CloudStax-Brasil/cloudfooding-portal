@@ -3,7 +3,35 @@
 .body_content {
     font-size: 1.5vw;
     padding-top: 3%;
+    animation: fadeIn 0.8s;
+
 }
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+  
+    to {
+        opacity: 1;
+    }
+  }
+
+.header {
+    animation: fadeIn 0.8s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+  
+    to {
+        opacity: 1;
+    }
+  }
+
 .body_content .left_side {
     display: flex;
     justify-content: space-between;
