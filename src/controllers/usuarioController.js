@@ -1,4 +1,4 @@
-var usuarioModel = require("../../../Site-Institucional---PROJETOBANDTEC/site-web/src/models/usuarioModel");
+var usuarioModel = require("../models/usuarioModel");
 
 var sessoes = [];
 
@@ -57,23 +57,26 @@ function entrar(req, res) {
                 }
             );
     }
-
 }
 
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
+    var cnpj = req.body.cnpjServer;
     var senha = req.body.senhaServer;
+    
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
+    } else if (cnpj == undefined) {
+            res.status(400).send("Seu cnpj está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
         
-        usuarioModel.cadastrar(nome, email, senha)
+        usuarioModel.cadastrar(nome, email, cnpj, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);
