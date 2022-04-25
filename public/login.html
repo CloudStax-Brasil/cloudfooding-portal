@@ -25,7 +25,7 @@
             <!-- Div do input da senha no Login-->
             <div class="divInput">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Senha" name="senha" id="senha_input"> 
+              <input type="password" placeholder="Senha" name="senha" id="ipt_senha"> 
             </div>
             <button type="button" value="Login" class="btn solid" onclick="entrar()">LOGIN</button>
            
@@ -113,9 +113,12 @@ btnLogin.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
 
+var emailVar
+var senhaVar
+
 function entrar() {
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+         emailVar = email_input.value;
+         senhaVar = ipt_senha.value;
 
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
@@ -157,7 +160,7 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
-                        window.location = "Dashboard/Dashboard.html";
+                        window.location = "html/dashboard.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
