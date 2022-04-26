@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="shortcut icon" href="../assets/img/Logos/favicon.ico" type="image/x-icon">
-    <script src="../js/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js."></script>
+    <script src="../html/main2.js"></script>
     <script src="https://kit.fontawesome.com/c0977e9452.js" crossorigin="anonymous"></script>
     <title>CloudFooding</title>
 </head>
@@ -31,38 +32,68 @@
         <div class="body_content">
 
             <div class="center">
-                <h2 style="color: rgb(160, 0, 12);">Gráficos</h2>
+                <h2>Gerentes</h2>
                 
-                <div class="dashboards-group">
-                    <div class="dashboard">
-                        <canvas id="myChart4"></canvas>
-                    </div>
-                </div>
-    
-                <div class="dashboards-group">
-                    <div class="dashboard">
-                        <canvas id="myChart2"></canvas>
-                    </div>
-                </div>
-                    
-                <div class="dashboards-group">
-                    <div class="dashboard">
-                        <canvas id="myChart3"></canvas>
-                    </div>
-                </div>
-                
-                <div class="dashboards-group">
-                    <div class="dashboard">
-                        <canvas id="myChart"></canvas>
+                <button type="button" class="button blue mobile" id="cadastrarCliente">Cadastrar Gerentes</button>
+                <table id="tableClient" class="records">
+                    <thead>
+                        <tr>
+                            <th style="color: white;">Nome</th>
+                            <th style="color: white;">E-mail</th>
+                            <th style="color: white;">Celular</th>
+                            <th style="color: white;">Franquia</th>
+                            <th style="color: white;">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                    </tbody>
+                </table>
+                <div class="modal" id="modal">
+                    <div class="modal-content">
+                        <header class="modal-header">
+                            <h2>Novo Gerente</h2>
+                            <span class="modal-close" id="modalClose">&#10006;</span>
+                        </header>
+                        <form id="form" class="modal-form">
+                            <input type="text" id="nome" data-index="new" class="modal-field" placeholder="Nome do Gerente"
+                                required>
+                            <input type="email" id="email" class="modal-field" placeholder="e-mail do Gerente" required>
+                            <input type="text" id="celular" class="modal-field" placeholder="Celular do Gerente" required>
+                            <input type="text" id="cidade" class="modal-field" placeholder="Franquia do Gerente" required>
+                        </form>
+                        <footer class="modal-footer">
+                            <button id="salvar" class="button green">Salvar</button>
+                            <button id="cancelar" class="button blue">Cancelar</button>
+                        </footer>
                     </div>
                 </div>
 
-                <div class="dashboards-group">
-                    <div class="dashboard">
-                        <canvas id="myChart5"></canvas>
+                <div class="modal" id="modalFranquia">
+                    <div class="modal-content">
+                        <header class="modal-header">
+                            <h2>Gráfico Franquia</h2>
+                            <span class="modal-close" id="modalClose">&#10006;</span>
+                        </header>
+                        <form id="form" class="modal-form">
+                            <h2 style="color: rgb(160, 0, 12);">Gráficos</h2>
+                
+                            <div class="dashboards-group">
+                                <div class="dashboard">
+                                    <canvas id="myChart4"></canvas>
+                                </div>
+                            </div>
+                
+                            <div class="dashboards-group">
+                                <div class="dashboard">
+                                    <canvas id="myChart2"></canvas>
+                                </div>
+                            </div>
+                        <footer class="modal-footer">
+                            <button id="cancelarModal" class="button blue">Fechar</button>
+                        </footer>
                     </div>
                 </div>
-
             </div>
 
             <div class="footer">
