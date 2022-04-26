@@ -6,7 +6,7 @@ var sqlServerConfig = {
     user: "cloudstax",
     password: "#Sptech2022",
     database: "cloudstax",
-    server: "http://cloudstax.database.windows.net",
+    server: "cloudstax.database.windows.net",
     pool: {
         max: 10,
         min: 0,
