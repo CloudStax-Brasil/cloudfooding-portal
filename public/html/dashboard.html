@@ -31,9 +31,17 @@
         </div>
         <div class="body_content">
             <div class="center">
+               
+
+                <div class="dashboards-group2">
+                    <h2>Comparativo de Desempenho</h2>
+                    <div class="dashboard">
+                        <canvas id="myChart4"></canvas>
+                    </div>
+                </div><br><br>
                 <h2>Caixas</h2>
                 
-                <button type="button" class="button blue mobile" id="cadastrarCliente">Cadastrar Gerentes</button>
+                <button type="button" class="button blue mobile" id="cadastrarCliente">Cadastrar Caixas</button>
                 <table id="tableClient" class="records">
                     <thead>
                         <tr>
@@ -75,13 +83,6 @@
                             <span class="modal-close" id="modalClose">&#10006;</span>
                         </header>
                         <form id="form" class="modal-form">
-                
-                            <div class="dashboards-group">
-                                <div class="dashboard">
-                                    <canvas id="myChart4"></canvas>
-                                </div>
-                            </div>
-                
                             <div class="dashboards-group">
                                 <div class="dashboard">
                                     <canvas id="myChart2"></canvas>
@@ -100,11 +101,6 @@
                                 </div>
                             </div>
             
-                            <div class="dashboards-group">
-                                <div class="dashboard">
-                                    <canvas id="myChart5"></canvas>
-                                </div>
-                            </div>
                         <footer class="modal-footer">
                             <button id="cancelarModal" class="button blue">Fechar</button>
                         </footer>
@@ -249,21 +245,23 @@
 
     const ctx4 = document.getElementById('myChart4').getContext('2d');
     const myChart4 = new Chart(ctx4, {
-        type: 'doughnut',
+        type: 'bar',
         data: {
-            labels: ['Funcionario 1', 'Funcionario 2', 'Funcionario 3',],
+            labels: ['Funcionario 1', 'Funcionario 2', 'Funcionario 3', 'Funcionario 3',],
             datasets: [{
                 label: '# of Votes',
-                data: [80, 19, 3],
+                data: [25, 19, 8, 15],
                 backgroundColor: [
                     'rgb(160, 0, 12)',
                     'rgb(255, 183, 0)',
+                    'rgb(255, 106, 0)',
                     'rgb(255, 106, 0)',
                     
                 ],
                 borderColor: [
                     'rgb(160, 0, 12)',
                     'rgb(255, 183, 0)',
+                    'rgb(255, 106, 0)',
                     'rgb(255, 106, 0)',
                     
                 ],
