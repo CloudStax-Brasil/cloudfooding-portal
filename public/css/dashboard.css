@@ -245,6 +245,11 @@
     background-color: #1FB6FF;
 }
 
+.button.close{
+    background-color: #fff;
+    cursor: default;
+}
+
 button.green{
     background-color: #13CE66;
 }
@@ -258,6 +263,12 @@ button.yellow{
 
 .button:hover{
     box-shadow: inset 200px 0 0 #00000055;
+}
+
+.button.close:hover{
+    cursor: default;
+    background-color: #fff;
+    box-shadow: inset 200px 0 0 #fff;
 }
 
 @media(max-width:480px){
@@ -502,4 +513,5 @@ footer{
     top: 0;
     display: none;
 }
+
 
