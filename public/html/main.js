@@ -3,16 +3,16 @@
 const openModal = () => document.getElementById('modal')
     .classList.add('active')
 
-const openModalFranquia = () => document.getElementById('modalFranquia')
-    .classList.add('active')
-
 const closeModal = () => {
     clearFields()
     document.getElementById('modal').classList.remove('active')
 }
 
-const closeModalFranquia = () => {
-    document.getElementById('modalFranquia').classList.remove('active')
+const openModal1 = () => document.getElementById('modalFranquia')
+    .classList.add('active')
+
+const closeModal1 = () => {
+    document.getElementById('modalFranquia').classList.remove('active');
 }
 
 const getLocalStorage = () => JSON.parse(localStorage.getItem('db_client')) ?? []
@@ -73,8 +73,6 @@ const saveClient = () => {
     }
 }
 
-
-
 const createRow = (client, index) => {
     const newRow = document.createElement('tr')
     newRow.innerHTML = `
@@ -83,17 +81,13 @@ const createRow = (client, index) => {
         <td>${client.celular}</td>
         <td>${client.cidade}</td>
         <td>
-            <button class="button blue" id="modalFranquiaBotao" onclick="abrirModal()">Franquia</button>
+            <button type="button" class="button blue" id="funcionario">Funcionario</button>
             <button type="button" class="button green" id="edit-${index}">Editar</button>
             <button type="button" class="button red" id="delete-${index}" >Excluir</button>
-
         </td>
     `
     document.querySelector('#tableClient>tbody').appendChild(newRow)
 }
-
-   
-
 
 const clearTable = () => {
     const rows = document.querySelectorAll('#tableClient>tbody tr')
@@ -130,7 +124,7 @@ const editDelete = (event) => {
             editClient(index)
         } else {
             const client = readClient()[index]
-            const response = (`Deseja realmente excluir o cliente ${client.nome}`)
+            const response = confirm(`Deseja realmente excluir o cliente ${client.nome}`)
             if (response) {
                 deleteClient(index)
                 updateTable()
@@ -157,12 +151,11 @@ document.querySelector('#tableClient>tbody')
 document.getElementById('cancelar')
     .addEventListener('click', closeModal)
 
-function abrirModal() {
-    document.getElementById('modalFranquiaBotao')
-    .addEventListener('click', openModalFranquia)
-}
+document.getElementById('cancelarModal1')
+    .addEventListener('click', closeModal)
 
-function fecharModal() {
-    document.getElementById('cancelarModal')
-    .addEventListener('click', closeModalFranquia)
-}
+document.querySelector('#tableClient>tbody')
+    .addEventListener('click',openModal1)
+
+document.getElementById('modalClose1')
+    .addEventListener('click', closeModal1)
