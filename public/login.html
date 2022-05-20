@@ -47,11 +47,7 @@
               <i class="fas fa-envelope"></i>
               <input type="email" placeholder="Email" id="email_input_cadastro">
             </div>
-            <!-- Div do input do cpnj do cadastro-->
-            <div class="divInput">
-              <i class="fas fa-lock"></i>
-              <input type="text" placeholder="CNPJ" id="cnpj_input_cadastro">
-            </div>
+
             <!-- Div da senha do cadastro-->
             <div class="divInput">
               <i class="fas fa-lock"></i>
@@ -186,10 +182,9 @@ function entrar() {
 
 var nomeVar = nome_input_cadastro.value;
 var emailVar = email_input_cadastro.value;
-var cnpjVar = cnpj_input_cadastro.value;
 var senhaVar = senha_input_cadastro.value;
 
-if (nomeVar == "" || emailVar == "" || cnpjVar == "" || senhaVar == "") {
+if (nomeVar == "" || emailVar == "" || senhaVar == "") {
 
     window.alert("Preencha todos os campos para prosseguir!");
     if (nomeVar == "") {
@@ -197,9 +192,6 @@ if (nomeVar == "" || emailVar == "" || cnpjVar == "" || senhaVar == "") {
     }
     if (emailVar == "") {
         console.log('email está em branco')
-    }
-    if (cnpjVar == "") {
-        console.log('senha está em branco')
     }
     if (senhaVar == "") {
         console.log('confirmacaoSenha está em branco')
@@ -226,7 +218,6 @@ fetch("/usuarios/cadastrar", {
     body: JSON.stringify({
         nomeServer: nomeVar,
         emailServer: emailVar,
-        cnpjServer: cnpjVar,
         senhaServer: senhaVar
     })
 }).then(function (resposta) {
