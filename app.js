@@ -23,7 +23,7 @@ app.use("/usuarios", usuarioRouter);
 
 
 app.listen(PORTA, function () {
-    console.log(`Servidor do site est� rodando rodando: http://localhost:${PORTA} \n
+    console.log(`Servidor do site est� rodando: http://localhost:${PORTA} \n
     Voc� est� rodando sua aplica��o em ${process.env.AMBIENTE_PROCESSO} \n
     \t\tSe "desenvolvimento", banco local (MySQL Workbench). \n
     \t\tSe "producao", banco remoto (SQL Server em nuvem Azure)`);

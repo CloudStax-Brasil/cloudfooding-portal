@@ -91,9 +91,43 @@ function cadastrar(req, res) {
     }
 }
 
+function cadastrarCaixa(req, res) {
+    var nomeCaixa = req.body.nomeCaixa;
+    var emailCaixa = req.body.emailCaixa;
+    var senhaCaixa = req.body.senhaCaixa;
+    var fkGerente = req.body.fkGerente;
+    
+
+    if (nomeCaixa == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (emailCaixa == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senhaCaixa == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else {
+        
+        usuarioModel.cadastrarCaixa(nomeCaixa, emailCaixa, senhaCaixa, fkGerente)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar,
+    cadastrarCaixa,
     listar,
     testar
 }

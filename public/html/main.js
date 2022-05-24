@@ -52,13 +52,11 @@ const clearFields = () => {
 }
 
 const saveClient = () => {
-    debugger
     if (isValidFields()) {
         const client = {
             nome: document.getElementById('nome').value,
             email: document.getElementById('email').value,
-            celular: document.getElementById('celular').value,
-            cidade: document.getElementById('cidade').value
+            senha: document.getElementById('senha').value,
         }
         const index = document.getElementById('nome').dataset.index
         if (index == 'new') {
@@ -78,8 +76,7 @@ const createRow = (client, index) => {
     newRow.innerHTML = `
         <td>${client.nome}</td>
         <td>${client.email}</td>
-        <td>${client.celular}</td>
-        <td>${client.cidade}</td>
+        <td>${client.senha}</td>
         <td>
             <button type="button" class="button blue" id="funcionario">Funcionario</button>
             <button type="button" class="button green" id="edit-${index}">Editar</button>
@@ -103,8 +100,8 @@ const updateTable = () => {
 const fillFields = (client) => {
     document.getElementById('nome').value = client.nome
     document.getElementById('email').value = client.email
-    document.getElementById('celular').value = client.celular
-    document.getElementById('cidade').value = client.cidade
+    document.getElementById('senha').value = client.senha
+    // document.getElementById('cidade').value = client.cidade
     document.getElementById('nome').dataset.index = client.index
 }
 
