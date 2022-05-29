@@ -1,14 +1,16 @@
-var dashModel = require("../models/dashboardModel")
+var dashboardModel = require("../models/dashboardModel")
 
 function buscarUltimasMedidasRam(req, res) {
 
     const limite_linhas = 7;
 
-    var idFuncionario = req.params.idFuncionario;
+    var idFuncionario = req.body.idFuncionario;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarUltimasMedidasRam(idFuncionario, limite_linhas).then(function (resultado) {
+    dashboardModel.buscarUltimasMedidasRam(idFuncionario, limite_linhas)
+    .then(function (resultado) {
+        console.log("resultado: ", resultado)
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -22,7 +24,7 @@ function buscarUltimasMedidasRam(req, res) {
 }
 function buscarMedidasEmTempoReal(req, res) {
 
-    var idFuncionario = req.params.idFuncionario;
+    var idFuncionario = req.body.idFuncionario;
 
     console.log(`Recuperando medidas em tempo real`);
 

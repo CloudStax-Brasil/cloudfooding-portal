@@ -3,6 +3,8 @@ var router = express.Router();
 
 var dashboardController = require("../controllers/dashboardController")
 
-router.get("/listarRam", function (req, res){
+router.post("/listarRam", function (req, res){
     dashboardController.buscarUltimasMedidasRam(req, res);
 })
+
+module.exports = router;

@@ -8,13 +8,12 @@ function buscarUltimasMedidasRam(idFuncionario) {
 }
 
 function buscarUltimasMedidasCPU(idCPU) {
-    instrucaoSql = `select uso from memoriaRam mr where fkFuncionario = ${idFuncionario};`
+    instrucaoSql = `select uso from cpu where fkFuncionario = ${idFuncionario};`
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-
 module.exports = {
     buscarUltimasMedidasRam,
-    buscarMedidasEmTempoReal
+    buscarUltimasMedidasCPU
 }
