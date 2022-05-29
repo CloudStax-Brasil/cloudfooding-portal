@@ -19,20 +19,31 @@ function listarCaixas(){
         if (resposta.ok) {
             console.log("Funcionários listados com sucesso");
             resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
-
-                console.log("email: ", emailVar)
-                console.log("nome: ", nomeVar)
-                console.log("senha: ", senhaVar)
-                console.log("id: ", idvar)
+                console.log("json: ", json);
+                console.log("json.stringify: ", JSON.stringify(json));
 
                 emailVar = json.emailFuncionario;
                 nomevar = json.nomeFuncionario;
                 senhaVar = json.senhaFuncionario;
                 idVar = json.idFuncionario;
 
-                saveClient()
+                for(i = 0; i< json.length; i++){
+                    let client = {
+                        nome: json[i].nomeFuncionario,
+                        email: json[i].emailFuncionarioailVar,
+                        senha: json[i].senhaFuncionario,
+                    }
+                    let index = json[i].idFuncionario
+                    document.getElementById(`table0`).innerHTML += `
+                    <tr>
+                        <th style="color: white;">Nome</th>
+                        <th style="color: white;">E-mail</th>
+                        <th style="color: white;">Senha</th>
+                        <th style="color: white;">Ação</th>
+                    </tr>
+                `
+                    console.log(`funcionario for: ${json[i]}`)
+                }
             });
 
         } else {
@@ -42,55 +53,4 @@ function listarCaixas(){
         console.log(`#ERRO: ${resposta}`);
     });
 return false;
-}
-
-const saveClient = () => {
-    if (isValidFields()) {
-        const client = {
-            nome: nomeVar,
-            email: emailVar,
-            senha: senhaVar,
-        }
-        const index = idVar
-        if (index == 'new') {
-            createClient(client)
-            updateTable()
-        } else {
-            updateClient(index, client)
-            updateTable()
-        }
-    }
-}
-
-const createRow = (client, index) => {
-    const newRow = document.createElement('tr')
-    newRow.innerHTML = `
-        <td>${client.nome}</td>
-        <td>${client.email}</td>
-        <td>${client.senha}</td>
-        <td>
-            <button type="button" class="button blue" id="funcionario">Funcionario</button>
-            <button type="button" class="button green" id="edit-${index}">Editar</button>
-            <button type="button" class="button red" id="delete-${index}" >Excluir</button>
-        </td>
-    `
-    document.querySelector('#tableClient>tbody').appendChild(newRow)
-}
-
-const updateClient = (index, client) => {
-    const dbClient = readClient()
-    dbClient[index] = client
-    setLocalStorage(dbClient)
-}
-
-const createClient = (client) => {
-    const dbClient = getLocalStorage()
-    dbClient.push (client)
-    setLocalStorage(dbClient)
-}
-
-const updateTable = () => {
-    const dbClient = readClient()
-    clearTable()
-    dbClient.forEach(createRow)
 }

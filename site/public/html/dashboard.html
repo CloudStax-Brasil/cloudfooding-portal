@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="shortcut icon" href="../assets/img/Logos/favicon.ico" type="image/x-icon">
     <script src="../js/chart.js"></script>
-    <script src="main.js" defer></script>
-    <script src="./listUsers.js" defer></script>
+    <!-- <script src="main.js" defer></script> -->
+    <!-- <script src="./listUsers.js"></script> -->
     <script src="https://kit.fontawesome.com/c0977e9452.js" crossorigin="anonymous"></script>
     <title>CloudFooding</title>
 
 </head>
 
-<body onload="listarCaixas(), listarRam()">
+<body  onload="listarCaixas()">
     <div class="main_container">
         <div class="header">
             <div class="header_logo">
@@ -49,12 +49,11 @@
                             <th style="color: white;">Nome</th>
                             <th style="color: white;">E-mail</th>
                             <th style="color: white;">Senha</th>
-                            <!-- <th style="color: white;">Franquia</th> -->
                             <th style="color: white;">Ação</th>
                         </tr>
                     </thead>
                     
-                    <tbody>
+                    <tbody id="table0">
                     </tbody>
                 </table>
                 <div class="modal" id="modal">
@@ -64,7 +63,7 @@
                             <span class="modal-close" id="modalClose">&#10006;</span>
                         </header>
                         <form id="form" class="modal-form">
-                            <input type="text" id=" " data-index="new" class="modal-field" placeholder="Nome do Caixa"
+                            <input type="text" id="nome" data-index="new" class="modal-field" placeholder="Nome do Caixa"
                                 required>
                             <input type="email" id="email" class="modal-field" placeholder="E-mail do Caixa" required>
                             <input type="text" id="senha" class="modal-field" placeholder="Senha do Caixa" required>
@@ -167,6 +166,40 @@
     var emailVar
     var senhaVar
     var fkVar = sessionStorage.ID_USUARIO;
+    var idVar;
+    var vetor;
+
+function listarCaixas(){
+    fetch("/usuarios/listarCaixas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkGerente: fkVar
+        })
+    }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            console.log("Funcionários listados com sucesso");
+            resposta.json().then(json => {
+                console.log("json: ", json);
+                console.log("json.stringify: ", JSON.stringify(json));
+                vetor = json;
+                console.log("vetor: ", vetor)
+                console.log("vetor.length: ", vetor.length)
+                adicionarTable();
+                
+            });
+        } else {
+            throw ("Houve um erro ao tentar listar os caixas!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
+return false;
+}
 
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
@@ -356,6 +389,19 @@
     return false;
     }
 
+    function adicionarTable(){
+        for(i = 0; i < vetor.length; i++){
+                    document.getElementById(`table0`).innerHTML += `
+                    <tr>
+                        <th style="background-color: white;">${vetor[i].nomeFuncionario}</th>
+                        <th style="background-color: white;">${vetor[i].emailFuncionario}</th>
+                        <th style="background-color: white;">${vetor[i].senhaFuncionario}</th>
+                        <th style="background-color: white;"><button class="button green">Editar</button></th>
+                    </tr>
+                    `;
+                    console.log(`funcionario for: ${vetor[i]}`)
+                }
+    }
 
     //CRUD - Inicio
     //Cadastrar Caixas
@@ -407,86 +453,4 @@
     return false;
     }
 
-    //Listar caixas
-    var emailVar;
-    var nomeVar;
-    var idVar;
-    var senhaVar;
-    var fkVar = sessionStorage.ID_USUARIO;
-
-    function listarCaixas(){
-        fetch("/usuarios/listarCaixas", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                fkGerente: fkVar
-            })
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-                console.log("Funcionários listados com sucesso");
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    emailVar = json.emailFuncionario;
-                    nomevar = json.nomeFuncionario;
-                    senhaVar = json.senhaFuncionario;
-                    idVar = json.idFuncionario;
-
-                    for(i = 0; i< json.length; i++){
-                        let client = {
-                            nome: json[i].nomeFuncionario,
-                            email: json[i].emailFuncionarioailVar,
-                            senha: json[i].senhaFuncionario,
-                        }
-                        let index = json[i].idFuncionario
-                        console.log("funcionario for: ", json[i])
-
-                        let createRow = (client, index) => {
-                            var newRow = document.createElement('tr')
-                            newRow.innerHTML = `
-                                <td>${client.nome}</td>
-                                <td>${client.email}</td>
-                                <td>${client.senha}</td>
-                                <td>
-                                    <button type="button" class="button blue" id="funcionario">Funcionario</button>
-                                    <button type="button" class="button green" id="edit-${index}">Editar</button>
-                                    <button type="button" class="button red" id="delete-${index}" >Excluir</button>
-                                </td>
-                            `
-                            document.querySelector('#tableClient>tbody').appendChild(newRow)
-                        }
-
-                        let updateClient = (index, client) => {
-                            var dbClient = readClient()
-                            dbClient[index] = client
-                            setLocalStorage(dbClient)
-                        }
-
-                        let createClient = (client) => {
-                            var dbClient = getLocalStorage()
-                            dbClient.push (client)
-                            setLocalStorage(dbClient)
-                        }
-
-                        let updateTable = () => {
-                            var dbClient = readClient()
-                            clearTable()
-                            dbClient.forEach(createRow)
-                        }
-                    }
-                });
-
-            } else {
-                throw ("Houve um erro ao tentar listar os caixas!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    return false;
-    }
 </script>
