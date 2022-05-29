@@ -20,13 +20,13 @@ function buscarUltimasMedidasRam(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-function buscarMedidasEmTempoReal(req, res) {
+function buscarUltimasMedidasCPU(req, res) {
 
     var idFuncionario = req.params.idFuncionario;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    dashModel.buscarMedidasEmTempoReal(idFuncionario).then(function (resultado) {
+    dashModel.buscarUltimasMedidasCPU(idFuncionario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -40,5 +40,5 @@ function buscarMedidasEmTempoReal(req, res) {
 }
 module.exports = {
     buscarUltimasMedidasRam,
-    buscarMedidasEmTempoReal
+    buscarUltimasMedidasCPU,
 }
