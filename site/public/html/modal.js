@@ -9,4 +9,15 @@ function fecharModal() {
     .classList.remove('active')
 }
 
+function abrirModalGrafico() {
+    let modal = document.getElementById('modalFranquia')
+    .classList.add('active')
+}
+
+function fecharModalGrafico() {
+    let modal = document.getElementById('modalFranquia')
+    .classList.remove('active')
+}
+
+
 
