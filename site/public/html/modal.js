@@ -18,3 +18,13 @@ function fecharModalGrafico() {
     let modal = document.getElementById('modalFuncionario')
     .classList.remove('active')
 }
+
+function abrirModalEditar() {
+    let modal = document.getElementById('modalEditar')
+    .classList.add('active')
+}
+
+function fecharModalEditar() {
+    let modal = document.getElementById('modalEditar')
+    .classList.remove('active')
+}

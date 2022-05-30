@@ -18,6 +18,16 @@ function listarCaixas(fkGerente) {
     return database.executar(instrucao);
 }
 
+function editarCaixa(nomeFuncionario, emailFuncionario, senhaFuncionario, idFuncionario) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editarCaixa(): ", nomeFuncionario, emailFuncionario, senhaFuncionario, idFuncionario);
+    var instrucao = `
+        UPDATE funcionario SET nomeFuncionario = '${nomeFuncionario}', emailFuncionario = '${emailFuncionario}', 
+        senhaFuncionario = '${senhaFuncionario} WHERE idFuncionario = ${idFuncionario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function entrar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
@@ -66,5 +76,6 @@ module.exports = {
     cadastrarCaixa,
     listar,
     listarCaixas,
-    deletarCaixa
+    deletarCaixa,
+    editarCaixa
 };

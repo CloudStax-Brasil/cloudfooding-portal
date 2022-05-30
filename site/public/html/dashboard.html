@@ -74,7 +74,26 @@
                         </form>
                         <footer class="modal-footer">
                             <button id="salvar" onclick="cadastrarCaixa()" class="button green">Salvar</button>
-                            <button id="cancelar" class="button blue" onclick="fecharModalCadastro()" >Cancelar</button>
+                            <button id="cancelar" class="button blue" onclick="fecharModal()" >Cancelar</button>
+                        </footer>
+                    </div>
+                </div>
+                <div class="modal" id="modalEditar">
+                    <div class="modal-content2">
+                        <header class="modal-header">
+                            <h2>Editar Gerente</h2>
+                            <span class="modal-close" id="modalClose" onclick="fecharModalEditar()">&#10006;</span>
+                        </header>
+                        <form id="form" class="modal-form">
+                            <input type="text" id="nomeEditar" data-index="new" class="modal-field" placeholder="Nome do Caixa"
+                                required>
+                            <input type="emailEditar" id="emailEditar" class="modal-field" placeholder="E-mail do Caixa" required>
+                            <input type="textEditar" id="senhaEditar" class="modal-field" placeholder="Senha do Caixa" required>
+                            <!-- <input type="text" id="cidade" class="modal-field" placeholder="Franquia do Caixa" required> -->
+                        </form>
+                        <footer class="modal-footer">
+                            <button onclick="editarCaixa()" class="button green">Salvar</button>
+                            <button id="cancelar" class="button blue" onclick="fecharModalEditar()" >Cancelar</button>
                         </footer>
                     </div>
                 </div>
@@ -404,7 +423,7 @@ return false;
                         <th style="background-color: white;">${vetor[i].emailFuncionario}</th>
                         <th style="background-color: white;">${vetor[i].senhaFuncionario}</th>
                         <td>
-                        <button type="button" class="button green">Editar</button>
+                        <button type="button" class="button green" onclick="abrirModalEditar(${i})">Editar</button>
                         <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario})">Funcionário</button>
                         <button type="button" class="button red" onclick="deletarCaixa(${i})">Deletar</button>
                         </td>
@@ -464,6 +483,51 @@ return false;
         });
 
     return false;
+    }
+
+    function editarCaixa() {
+    var nomeVar = nomeEditar.value;
+    var emailVar = emailEditar.value;
+    var senhaVar = senhaEditar.value;
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+
+        window.alert("Preencha todos os campos para prosseguir!");
+        if (nomeVar == "") {
+            console.log('nome está em branco')
+        }
+        if (emailVar == "") {
+            console.log('email está em branco')
+        }
+        if (senhaVar == "") {
+            console.log('confirmacaoSenha está em branco')
+        }
+        return false;
+        }
+
+        fetch(`/usuarios/editarCaixa/}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeFuncionario: nomeVar,
+                emailFuncionario: emailVar,
+                senhaFuncionario: senhaVar
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post atualizado com sucesso pelo usuario de email: ");
+                window.location = "/html/dashboard.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
     }
 
     function deletarCaixa(idCaixa) {

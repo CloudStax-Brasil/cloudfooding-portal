@@ -25,7 +25,11 @@ router.post("/cadastrarCaixa", function (req, res) {
 
 router.delete("/deletarCaixa/:idCaixa", function (req, res){
     usuarioController.deletarCaixa(req, res);
-}) 
+});
+
+router.put("/editarCaixa/:idFuncionario", function (req, res) {
+    usuarioController.editarCaixa(req, res);
+});
 
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
