@@ -83,7 +83,7 @@
                     <div class="modal-content">
                         <header class="modal-header">
                             <h2>Desempenho Caixa</h2>
-                            <span class="modal-close" id="modalClose1" onclick="fecharModalFuncionario()">
+                            <span class="modal-close" id="modalClose1" onclick="fecharModalGrafico()">
                                 &#10006;
                             </span>
                         </header>
@@ -403,10 +403,11 @@ return false;
                         <th style="background-color: white;">${vetor[i].nomeFuncionario}</th>
                         <th style="background-color: white;">${vetor[i].emailFuncionario}</th>
                         <th style="background-color: white;">${vetor[i].senhaFuncionario}</th>
-                        <th style="background-color: white;">
-                        <button onclick="abrirModalFuncionario(${i})" class="button blue">
-                            Gráficos
-                        </button></th>
+                        <td>
+                        <button type="button" class="button green">Editar</button>
+                        <button type="button" class="button blue" onclick="abrirModalGrafico(${i})">Funcionário</button>
+                        <button type="button" class="button red" onclick="deletarCaixa()">Deletar</button>
+                        </td>
                     </tr>
                     `;
                     console.log(`funcionario for: ${vetor[i]}`)
@@ -456,6 +457,40 @@ return false;
                 fecharModal();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    return false;
+    }
+
+    function deletarCaixa() {
+
+    var nomeVar = nome.value;
+    var emailVar = email.value;
+    var senhaVar = senha.value;
+
+        fetch("/usuarios/deletarCaixa", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeCaixa: nomeVar,
+                emailCaixa: emailVar,
+                senhaCaixa: senhaVar,
+                fkGerente: fkVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Usuário deletado com sucesso !");
+                location.reload();
+            } else {
+                throw ("Houve um erro ao tentar deletar um funcionario!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);

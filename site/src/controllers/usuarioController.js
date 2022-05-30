@@ -43,6 +43,25 @@ function listarCaixas(req, res) {
         );
 }
 
+function deletarCaixa(req, res) {
+    var idFuncionario = req.body.idFuncionario;
+
+    usuarioModel.deletarCaixa(idFuncionario)
+        .then(function (resultado) {
+            if(resultado.idFuncionario == true) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Usuario não deletado")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o caixa! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+}
+
 function entrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -143,11 +162,13 @@ function cadastrarCaixa(req, res) {
     }
 }
 
+
 module.exports = {
     entrar,
     cadastrar,
     cadastrarCaixa,
     listar,
     listarCaixas,
-    testar
+    testar,
+    deletarCaixa
 }
