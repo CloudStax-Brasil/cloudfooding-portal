@@ -42,7 +42,7 @@
                 </div><br><br>
                 <h2>Caixas</h2>
                 
-                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModalCadastro()"> 
+                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal()"> 
                     Cadastrar Caixas
                 </button>
 
@@ -63,7 +63,7 @@
                     <div class="modal-content2">
                         <header class="modal-header">
                             <h2>Novo Gerente</h2>
-                            <span class="modal-close" id="modalClose" onclick="fecharModalCadastro()">&#10006;</span>
+                            <span class="modal-close" id="modalClose" onclick="fecharModal()">&#10006;</span>
                         </header>
                         <form id="form" class="modal-form">
                             <input type="text" id="nome" data-index="new" class="modal-field" placeholder="Nome do Caixa"
@@ -405,8 +405,8 @@ return false;
                         <th style="background-color: white;">${vetor[i].senhaFuncionario}</th>
                         <td>
                         <button type="button" class="button green">Editar</button>
-                        <button type="button" class="button blue" onclick="abrirModalGrafico(${i})">Funcionário</button>
-                        <button type="button" class="button red" onclick="deletarCaixa(${i.idCaixa})">Deletar</button>
+                        <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario})">Funcionário</button>
+                        <button type="button" class="button red" onclick="deletarCaixa(${i})">Deletar</button>
                         </td>
                     </tr>
                     `;
@@ -454,6 +454,7 @@ return false;
 
             if (resposta.ok) {
                 window.alert("Cadastro realizado com sucesso!");
+                location.reload();
                 fecharModal();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
@@ -485,5 +486,6 @@ return false;
             console.log(`#ERRO: ${resposta}`);
         });
     }
+    
 
 </script>
