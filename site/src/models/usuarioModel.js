@@ -52,7 +52,7 @@ function cadastrarCaixa(nomeCaixa, emailCaixa, senhaCaixa, fkGerente) {
 }
 
 function deletarCaixa(idCaixa) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idCaixa);
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletarCaixa():", idCaixa);
     var instrucao = `
         DELETE FROM funcionario WHERE idFuncionario = ${idCaixa};
     `;
