@@ -1,20 +1,20 @@
 
-function abrirModalCadastro() {
+function abrirModal() {
     let modal = document.getElementById('modal')
     .classList.add('active')
 }
 
-function fecharModalCadastro() {
+function fecharModal() {
     let modal = document.getElementById('modal')
     .classList.remove('active')
 }
 
-function abrirModalFuncionario(index){
-    document.getElementById('modalFuncionario')
+function abrirModalGrafico() {
+    let modal = document.getElementById('modalFuncionario')
     .classList.add('active')
 }
 
-function fecharModalFuncionario(index){
-    document.getElementById('modalFuncionario')
-    .classList.remove('active');
+function fecharModalGrafico() {
+    let modal = document.getElementById('modalFuncionario')
+    .classList.remove('active')
 }

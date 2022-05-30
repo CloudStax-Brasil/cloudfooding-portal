@@ -23,6 +23,10 @@ router.post("/cadastrarCaixa", function (req, res) {
     usuarioController.cadastrarCaixa(req, res);
 });
 
+router.delete("/deletarCaixa", function (req, res){
+    usuarioController.deletarCaixa(req, res);
+}) 
+
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
