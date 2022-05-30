@@ -103,7 +103,7 @@
                                 
                             <div class="dashboards-group">
                                 <div class="dashboard">
-                                    <canvas id="myChart3"></canvas>
+                                    <canvas id="myChart6"></canvas>
                                 </div>
                             </div>
                             
@@ -543,5 +543,137 @@ return false;
         });
     }
     
+    let proximaAtualizacao;
+
+    window.onload = obterDadosGrafico();
+
+    function obterDadosGrafico(idCPU) {
+        if(proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/dashboard/ultimas/${idCPU}`, { cache: `no-store` }).then(function (response){
+            if(response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idCPU)
+                });
+            } else {
+                console.error("Nenhum dado encontrado ou erro na API")
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção de dados para o gráfico: ${error.message}`)
+            }
+            )
+    }
+
+    function plotarGrafico(resposta, idCPU) {
+        console.log('Iniciando plotagem do gráfico');
+
+    const ctx6 = document.getElementById('myChart6').getContext('2d');
+    const myChart6 = new Chart(ctx6, {
+            labels: [],
+            datasets: [
+                {
+                    yAxisID: 'y-temperatura',
+                    label: 'Temperatura CPU',
+                    borderColor: 'rgb(160, 0, 12)',
+                    backgroundColor: 'rgb(160, 0, 12)',
+                    fill: true,
+                    data: []                   
+                }
+            ]
+    });
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.temperatura);
+        } 
+
+        console.log(JSON.stringify(dados));
+
+        var ctx = canvas_grafico.getContext('2d');
+        window.grafico_linha = Chart.Line(ctx, {
+            data: dados,
+            //Configurações do gráfico
+            options: {
+                responsive: true,
+                animation: { duration: 500 },
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: true,
+                    text: 'Histórico recente de temperatura'
+                },
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-temperatura',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        }
+                    }],
+                }
+            }
+        });
+
+        function sendData() {
+			var http = new XMLHttpRequest();
+			http.open('POST', 'http://localhost:3000/api/sendData', false);
+			http.send(null);
+		}
+
+        setInterval(() => {
+			sendData();
+		}, 2000);
+
+        //Atualiza os dados de 5 em 5 segundos
+        setTimeout(() => atualizarGrafico(idCPU, dados), 2000);
+    };
+
+    function atualizarGrafico(idCPU, dados) {
+
+fetch(`/dashboard/tempo-real/${idCPU}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (novoRegistro) {
+
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico: ${dados}`);
+
+            // tirando e colocando valores no gráfico
+            dados.labels.shift(); // apagar o primeiro
+            dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+            dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+            dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de umidade
+
+            window.grafico_linha.update();
+
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(idCPU, dados), 2000);
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(idCPU, dados), 2000);
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+
+}
+
+      
+    
+
+    
+
+
 
 </script>
