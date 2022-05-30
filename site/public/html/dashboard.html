@@ -10,7 +10,6 @@
     <link rel="shortcut icon" href="../assets/img/Logos/favicon.ico" type="image/x-icon">
     <script src="../js/chart.js"></script>
     <!-- <script src="main.js" defer></script> -->
-    <!-- <script src="./listUsers.js"></script> -->
     <script src="./modal.js"></script>
     <script src="https://kit.fontawesome.com/c0977e9452.js" crossorigin="anonymous"></script>
     <title>CloudFooding</title>
@@ -43,7 +42,10 @@
                 </div><br><br>
                 <h2>Caixas</h2>
                 
-                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal()">Cadastrar Caixas</button>
+                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModalCadastro()"> 
+                    Cadastrar Caixas
+                </button>
+
                 <table id="tableClient" class="records">
                     <thead>
                         <tr>
@@ -61,7 +63,7 @@
                     <div class="modal-content2">
                         <header class="modal-header">
                             <h2>Novo Gerente</h2>
-                            <span class="modal-close" id="modalClose" onclick="fecharModal()">&#10006;</span>
+                            <span class="modal-close" id="modalClose" onclick="fecharModalCadastro()">&#10006;</span>
                         </header>
                         <form id="form" class="modal-form">
                             <input type="text" id="nome" data-index="new" class="modal-field" placeholder="Nome do Caixa"
@@ -72,16 +74,18 @@
                         </form>
                         <footer class="modal-footer">
                             <button id="salvar" onclick="cadastrarCaixa()" class="button green">Salvar</button>
-                            <button id="cancelar" class="button blue" onclick="fecharModal()">Cancelar</button>
+                            <button id="cancelar" class="button blue" onclick="fecharModalCadastro()" >Cancelar</button>
                         </footer>
                     </div>
                 </div>
 
-                <div class="modal" id="modalFranquia">
+                <div class="modal" id="modalFuncionario">
                     <div class="modal-content">
                         <header class="modal-header">
                             <h2>Desempenho Caixa</h2>
-                            <span class="modal-close" id="modalClose1">&#10006;</span>
+                            <span class="modal-close" id="modalClose1" onclick="fecharModalFuncionario()">
+                                &#10006;
+                            </span>
                         </header>
                         <form id="form" class="modal-form">
                             <div class="dashboards-group">
@@ -103,7 +107,9 @@
                             </div>
             
                         <footer class="modal-footer">
-                            <button id="cancelarModal1" class="button  close">Fechar</button>
+                            <button id="cancelarModal1" class="button  close" onclick="fecharModal()">
+                                Fechar
+                            </button>
                         </footer>
                     </div>
                 </div>
@@ -397,7 +403,10 @@ return false;
                         <th style="background-color: white;">${vetor[i].nomeFuncionario}</th>
                         <th style="background-color: white;">${vetor[i].emailFuncionario}</th>
                         <th style="background-color: white;">${vetor[i].senhaFuncionario}</th>
-                        <th style="background-color: white;"><button class="button green">Editar</button></th>
+                        <th style="background-color: white;">
+                        <button onclick="abrirModalFuncionario(${i})" class="button blue">
+                            Gráficos
+                        </button></th>
                     </tr>
                     `;
                     console.log(`funcionario for: ${vetor[i]}`)
