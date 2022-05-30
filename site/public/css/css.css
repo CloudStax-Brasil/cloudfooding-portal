@@ -14,11 +14,11 @@
 
 .main_container {
     background: linear-gradient(
-        219deg, 
-        #FFC839 0%, 
-        rgba(237, 103, 63, 0.4) 37.76%, 
-        rgba(237, 63, 75, 0.6) 80.43%, 
-        rgba(237, 63, 75, 0.9) 94.16%
+        220deg, 
+        #ff9500,
+        #ffe100,
+        #ffb700,
+        #fea221
         );
     overflow-x: hidden;
     padding: 5vh 5vw;

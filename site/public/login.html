@@ -28,7 +28,7 @@
               <input type="password" placeholder="Senha" name="senha" id="ipt_senha"> 
             </div>
             <button type="button" value="Login" class="btn solid" onclick="entrar()">LOGIN</button>
-           
+            <img src="./assets/img/loading.svg" style="width: 10%; display: none;" id="loading-login">
           </form>
 
           <!-- Tela de cadastro-->
@@ -54,6 +54,7 @@
               <input type="password" placeholder="Senha" id="senha_input_cadastro">
             </div>
             <button type="button" class="btn solid" value="Cadastrar" id="senha_input" onclick="cadastrar()">Cadastrar</button>
+            <img src="./assets/img/loading.svg" style="width: 10%; display: none;" id="loading-cadastro">
           </form>
         </div>
       </div>
@@ -126,12 +127,13 @@ function entrar() {
             return false;
         }
 
-        if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
+        else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
             window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
             
             return false;
+        }else{
+          document.getElementById(`loading-login`).style.display = "block";
         }
-
         fetch("/usuarios/autenticar", {
             method: "POST",
             headers: {
@@ -143,7 +145,7 @@ function entrar() {
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()!")
-
+            document.getElementById('loading-login').style.display = 'none';
             if (resposta.ok) {
                 console.log(resposta);
 
@@ -199,16 +201,16 @@ if (nomeVar == "" || emailVar == "" || senhaVar == "") {
     return false;
 }
 
-if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
+else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
     window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
-    return false;
 }
 
-if (senhaVar != senhaVar) {
+else if (senhaVar != senhaVar) {
     window.alert("As senhas inseridas devem ser iguais para prosseguir!");
-    
-    return false;
+}else{
+  document.getElementById('loading-cadastro').style.display = 'block';
 }
+
 
 fetch("/usuarios/cadastrar", {
     method: "POST",
@@ -221,9 +223,8 @@ fetch("/usuarios/cadastrar", {
         senhaServer: senhaVar
     })
 }).then(function (resposta) {
-
     console.log("resposta: ", resposta);
-
+    document.getElementById('loading-cadastro').style.display = 'none';
     if (resposta.ok) {
         window.alert("Cadastro realizado com sucesso!");
         window.location = "login.html";
