@@ -44,22 +44,21 @@ function listarCaixas(req, res) {
 }
 
 function deletarCaixa(req, res) {
-    var idFuncionario = req.body.idFuncionario;
+    var idCaixa = req.params.idCaixa;
 
-    usuarioModel.deletarCaixa(idFuncionario)
-        .then(function (resultado) {
-            if(resultado.idFuncionario == true) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Usuario não deletado")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao deletar o caixa! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
+    usuarioModel.deletarCaixa(idCaixa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
             }
         )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
 
 function entrar(req, res) {

@@ -23,7 +23,7 @@ router.post("/cadastrarCaixa", function (req, res) {
     usuarioController.cadastrarCaixa(req, res);
 });
 
-router.delete("/deletarCaixa", function (req, res){
+router.delete("/deletarCaixa/:idCaixa", function (req, res){
     usuarioController.deletarCaixa(req, res);
 }) 
 
