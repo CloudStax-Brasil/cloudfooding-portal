@@ -1,14 +1,14 @@
 var dashboardModel = require("../models/dashboardModel")
 
-function buscarUltimasMedidasRam(req, res) {
+function buscarUltimasMedidasCPU(req, res) {
 
     const limite_linhas = 7;
 
-    var idFuncionario = req.body.idFuncionario;
+    var idMaquina = req.body.idMaquina;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    dashboardModel.buscarUltimasMedidasRam(idFuncionario, limite_linhas)
+    dashboardModel.buscarUltimasMedidasRam(idMaquina, limite_linhas)
     .then(function (resultado) {
         console.log("resultado: ", resultado)
         if (resultado.length > 0) {
@@ -22,13 +22,14 @@ function buscarUltimasMedidasRam(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-function buscarMedidasEmTempoReal(req, res) {
 
-    var idFuncionario = req.body.idFuncionario;
+function buscarMedidasEmTempoRealCPU(req, res) {
+
+    var idCPU = req.body.idCPU;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarMedidasEmTempoReal(idFuncionario).then(function (resultado) {
+    dashboardModel.buscarMedidasEmTempoRealCPU(idCPU).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -41,6 +42,6 @@ function buscarMedidasEmTempoReal(req, res) {
     });
 }
 module.exports = {
-    buscarUltimasMedidasRam,
-    buscarMedidasEmTempoReal
+    buscarUltimasMedidasCPU,
+    buscarMedidasEmTempoRealCPU
 }
