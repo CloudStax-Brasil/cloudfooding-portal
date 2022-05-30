@@ -23,6 +23,10 @@ router.post("/cadastrarCaixa", function (req, res) {
     usuarioController.cadastrarCaixa(req, res);
 });
 
+router.post("/atualizarCaixa", function (req, res){
+    usuarioController.atualizarCaixa(req, res);
+}) 
+
 router.delete("/deletarCaixa/:idCaixa", function (req, res){
     usuarioController.deletarCaixa(req, res);
 }) 

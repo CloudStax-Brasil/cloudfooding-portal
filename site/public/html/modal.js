@@ -18,3 +18,24 @@ function fecharModalGrafico() {
     let modal = document.getElementById('modalFuncionario')
     .classList.remove('active')
 }
+
+function openEditModal(idFuncionario, nomeFuncionario, emailFuncionario, senhaFuncionario) {
+    sessionStorage.ID_FUNCIONARIO = idFuncionario;
+    sessionStorage.NOME_FUNCIONARIO = nomeFuncionario;
+    sessionStorage.EMAIL_FUNCIONARIO = emailFuncionario;
+    sessionStorage.SENHA_FUNCIONARIO = senhaFuncionario;
+    document.getElementById('nomeFuncionario').value = nomeFuncionario;
+    document.getElementById('emailFuncionario').value = emailFuncionario;
+    document.getElementById('senhaFuncionario').value = senhaFuncionario;
+    let editModal = document.getElementById('editModal')
+    .classList.add('active')
+}
+
+function fecharModalEdit() {
+    sessionStorage.ID_FUNCIONARIO = null;
+    sessionStorage.NOME_FUNCIONARIO = null;
+    sessionStorage.EMAIL_FUNCIONARIO = null;
+    sessionStorage.SENHA_FUNCIONARIO = null;
+    let editModal = document.getElementById('editModal')
+    .classList.remove('active')
+}

@@ -376,6 +376,17 @@ footer{
     box-shadow: 1px 1px 10px black;
 }
 
+.modal-content3{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    width: 40vw;
+    margin: 15vh auto;
+    padding-bottom: 20px;
+    background-color: white;
+    box-shadow: 1px 1px 10px black;
+}
+
 .modal-header{
     display: flex;
     position: relative;

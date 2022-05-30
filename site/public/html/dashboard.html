@@ -114,6 +114,25 @@
                     </div>
                 </div>
 
+                <div class="modal" id="editModal">
+                    <div class="modal-content3">
+                        <header class="modal-header">
+                            <h2>Novo Gerente</h2>
+                            <span class="modal-close" id="modalClose3" onclick="fecharModalEdit()">&#10006;</span>
+                        </header>
+                        <form id="form" class="modal-form">
+                            <input type="text" id="nomeFuncionario" data-index="new" class="modal-field" placeholder="Nome do Caixa"
+                                required>
+                            <input type="email" id="emailFuncionario" class="modal-field" placeholder="E-mail do Caixa" required>
+                            <input type="text" id="senhaFuncionario" class="modal-field" placeholder="Senha do Caixa" required>
+                        </form>
+                        <footer class="modal-footer">
+                            <button id="salvarCaixa" onclick="atualizarCaixa()" class="button green">Salvar</button>
+                            <button id="cancelar" class="button blue" onclick="fecharModalEdit()" >Cancelar</button>
+                        </footer>
+                    </div>
+                </div>
+
                 
                 </div>
             </div>
@@ -405,13 +424,15 @@ return false;
                         <th style="background-color: white;">${vetor[i].emailFuncionario}</th>
                         <th style="background-color: white;">${vetor[i].senhaFuncionario}</th>
                         <td>
-                        <button type="button" class="button green">Editar</button>
+                        <button type="button" class="button green" onclick="openEditModal('${vetor[i].idFuncionario}','${vetor[i].nomeFuncionario}','${vetor[i].emailFuncionario}','${vetor[i].senhaFuncionario}')">
+                            Editar
+                        </button>
                         <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario})">Funcionário</button>
-                        <button type="button" class="button red" onclick="deletarCaixa(${i})">Deletar</button>
+                        <button type="button" class="button red" onclick="deletarCaixa(${vetor[i].idFuncionario})">Deletar</button>
                         </td>
                     </tr>
                     `;
-                    console.log(`funcionario for: ${vetor[i]}`)
+                    console.log(`funcionario for: ${vetor[i].idFuncionario}`)
                 }
     }
 
@@ -482,6 +503,32 @@ return false;
                 window.alert("Deu 404!");
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function atualizarCaixa() {
+        console.log("Criar função de apagar post escolhido - ID" + sessionStorage.ID_FUNCIONARIO);
+        fetch(`/usuarios/atualizarCaixa`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idFuncionario: sessionStorage.ID_FUNCIONARIO,
+                nomeFuncionario: document.getElementById('nomeFuncionario').value,
+                emailFuncionario: document.getElementById('emailFuncionario').value,
+                senhaFuncionario: document.getElementById('senhaFuncionario').value
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                window.alert("Funcionario atualizado realizado com sucesso!");
+                location.reload();
+                fecharModal();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
