@@ -36,11 +36,9 @@
     flex-direction: column;
     justify-content: center;
     width: 75%;
-    height: 80vh;
     background-color: #fff;
     padding: 5vh 22vh;
     border-radius: 0.7vh;
-    overflow-y: auto;
 }
 
 .dashboards-group{
@@ -442,6 +440,11 @@ footer{
     background-color: inherit;
     text-align: right;
     padding: 0 20px;
+}
+
+.loading{
+    color: #fff;
+    background-color: #fff;
 }
 
 @media (max-width:480px){

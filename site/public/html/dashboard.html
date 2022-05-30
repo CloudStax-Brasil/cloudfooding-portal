@@ -57,6 +57,13 @@
                     </thead>
                     
                     <tbody id="table0">
+                        <tr class="loading">
+                            <th style="background-color: white;">Nome</th>
+                            <th style="background-color: white;">E-mail</th>
+                            <th style="background-color: #fff;">
+                                <img src="../assets/img/loading.svg" alt="">
+                            </th>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="modal" id="modal">
@@ -417,6 +424,7 @@ return false;
     }
 
     function adicionarTable(){
+        document.getElementById(`table0`).innerHTML = "";
         for(i = 0; i < vetor.length; i++){
                     document.getElementById(`table0`).innerHTML += `
                     <tr>
