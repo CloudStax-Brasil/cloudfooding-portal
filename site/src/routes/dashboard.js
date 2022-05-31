@@ -4,16 +4,12 @@ var router = express.Router();
 
 var dashboardController = require("../controllers/dashboardController")
 
-router.get("/listarRam", function (req, res){
-    dashboardController.buscarUltimasMedidasRam(req, res);
+router.post("/buscarUltimasMedidasCPU", function (req, res){
+    dashboardController.buscarUltimasMedidasCpu(req, res);
 });
 
-router.get("/ultimas/:idCPU", function (req, res){
-    dashboardController.buscarUltimasMedidasCPU(req, res);
-})
-
-router.get("/tempo-real/:idCPU", function (req, res){
-    dashboardController.buscarMedidasEmTempoRealCPU(req, res);
+router.post("/buscarUltimasMedidasRam", function (req, res){
+    dashboardController.buscarUltimasMedidasRam(req, res);
 })
 
 module.exports = router;

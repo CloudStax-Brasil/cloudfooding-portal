@@ -235,8 +235,8 @@ function listarCaixas(){
 return false;
 }
 
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
@@ -263,8 +263,8 @@ return false;
         }
     });
 
-    const ctx2 = document.getElementById('myChart2').getContext('2d');
-    const myChart2 = new Chart(ctx2, {
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
         type: 'line',
         data: {
             labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
@@ -289,8 +289,8 @@ return false;
         }
     });
 
-    const ctx3 = document.getElementById('myChart3').getContext('2d');
-    const myChart3 = new Chart(ctx3, {  
+    var ctx3 = document.getElementById('myChart3').getContext('2d');
+    var configuration3 = {  
         type: 'line',
         data: {
             labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
@@ -315,10 +315,11 @@ return false;
                 }
             }
         }
-    });
+    };
+    var myChart3 = new Chart(ctx3, configuration3)
 
-    const ctx4 = document.getElementById('myChart4').getContext('2d');
-    const myChart4 = new Chart(ctx4, {
+    var ctx4 = document.getElementById('myChart4').getContext('2d');
+    var myChart4 = new Chart(ctx4, {
         type: 'bar',
         data: {
             labels: ['Funcionario 1', 'Funcionario 2', 'Funcionario 3', 'Funcionario 3',],
@@ -351,8 +352,8 @@ return false;
         }
     });
 
-    const ctx5 = document.getElementById('myChart5').getContext('2d');
-    const myChart5 = new Chart(ctx5, {
+    var ctx5 = document.getElementById('myChart5').getContext('2d');
+    var myChart5 = new Chart(ctx5, {
         type: 'bar',
         data: {
             labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
@@ -383,45 +384,7 @@ return false;
         }
     });
 
-    //Metricas
-    function listarRam(){
-        fetch("/dashboard/listarRam", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idFuncionario: 5
-            })
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
 
-            if (resposta.ok) {
-                console.log("Funcionários listados com sucesso");
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    temperaturaVar = json.temperatura;
-                    usoVar = json.uso;
-                    horaVar = json.hora;
-                    fkMaquinaVar = json.fkMaquina;
-
-
-                    console.log("email: ", emailVar)
-                    console.log("nome: ", nomeVar)
-                    console.log("senha: ", senhaVar)
-                    console.log("id: ", idvar)
-                });
-
-            } else {
-                throw ("Houve um erro ao tentar listar os dados de ram!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    return false;
-    }
 
     function adicionarTable(){
         document.getElementById(`table0`).innerHTML = "";
