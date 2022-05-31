@@ -48,15 +48,18 @@
                     <div class="box yellow">
                       <h1>0-3</h1>
                       <h3>RAM</h3>
-                      <p>USO DE RAM MUITO ABAIXO</p>
+                      <p>POUCO USO DE RAM</p>
                     </div>
                     <div class="box green">
                       <h1>4-6</h1>
                       <h3>RAM</h3>
-                      <p>IDEAL USO DE RAM</p>
+                      <p>USO IDEAL DE RAM</p>
                     </div>
                   </div>
 
+                <button type="button" class="button blue mobile" onclick="cadastrarPontos()">
+                    Adicionar pontos
+                </button>
                 <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal(), loadDash()">
                     Cadastrar Caixas
                 </button>
@@ -95,7 +98,7 @@
                             <!-- <input type="text" id="cidade" class="modal-field" placeholder="Franquia do Caixa" required> -->
                         </form>
                         <footer class="modal-footer">
-                            <button id="salvar" onclick="cadastrarCaixa(), a()" class="button green">Salvar</button>
+                            <button id="salvar" onclick="cadastrarCaixa()" class="button green">Salvar</button>
                             <button id="cancelar" class="button blue" onclick="fecharModalCadastro()">Cancelar</button>
                         </footer>
                     </div>
@@ -261,6 +264,12 @@
         setTimeout(() => atualizarMedidasRam(), 3000)
     }
 
+    function cadastrarPontos() {
+        myChart4.data.labels = ['Funcionario1']
+        myChart4.data.datasets[0].data.push(10);
+        myChart4.update();
+    }
+
     function buscarUltimasMedidasCpu() {
         fetch("/dashboard/buscarUltimasMedidasCPU/", {
             method: "POST",
@@ -327,16 +336,15 @@
 
                         if(usoRAM >= 4602442240 && usoRAM < 6500400200) {
                             console.log('to tranquilo')
-                            myChart4.data.labels = ['Funcionario2']
+                            myChart4.data.labels = ['Funcionario1']
                             myChart4.data.datasets[0].data.push(10);
                             myChart4.update();
                         }
 
                         if(usoRAM > 6500400200) {
                             console.log('estou muito grande')
-                            document.getElementById('table0').style.backgroundColor="red"
                             myChart4.data.labels = ['Funcionario1']
-                            myChart4.data.datasets[0].data.push(10);
+                            myChart4.data.datasets[0].data.shift(10);
                             myChart4.update();
                         }
 
@@ -485,7 +493,7 @@
         myChart4 = new Chart(ctx4, {
             type: 'bar',
             data: {
-                labels: ['Funcionario1', 'Funcionario2'],
+                labels: ['GRUPO 4'],
                 datasets: [{
                     label: '# of Votes',
                     data: [],
@@ -569,9 +577,6 @@
         }
     }
 
-    const getLocalStorage = () => JSON.parse(localStorage.getItem('db_client')) ?? []
-    const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
-
     //CRUD - Inicio
     //Cadastrar Caixas
     function cadastrarCaixa() {
@@ -612,17 +617,9 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                const dbClient = getLocalStorage()
-                i = 2;
-                i++
-               const funcionario = myChart4.data.labels.push('Funcionário: ' + i)
-                myChart4.update();
                 window.alert("Cadastro realizado com sucesso!");
-                dbClient.push(funcionario)
-                window.localStorage.setItem(funcionario);
-                setLocalStorage(dbClient)
-                location.reload();
                 fecharModal();
+                location.reload();
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
