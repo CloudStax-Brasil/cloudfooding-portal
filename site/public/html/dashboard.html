@@ -16,7 +16,7 @@
 
 </head>
 
-<body  onload="listarCaixas()">
+<body onload="listarCaixas()">
     <div class="main_container">
         <div class="header">
             <div class="header_logo">
@@ -32,7 +32,7 @@
         </div>
         <div class="body_content">
             <div class="center">
-               
+
 
                 <div class="dashboards-group2">
                     <h2>Comparativo de Desempenho</h2>
@@ -41,8 +41,8 @@
                     </div>
                 </div><br><br>
                 <h2>Caixas</h2>
-                
-                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal()"> 
+
+                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal()">
                     Cadastrar Caixas
                 </button>
 
@@ -55,7 +55,7 @@
                             <th style="color: white;">Ação</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody id="table0">
                         <tr class="loading">
                             <th style="background-color: white;">Nome</th>
@@ -73,15 +73,15 @@
                             <span class="modal-close" id="modalClose" onclick="fecharModal()">&#10006;</span>
                         </header>
                         <form id="form" class="modal-form">
-                            <input type="text" id="nome" data-index="new" class="modal-field" placeholder="Nome do Caixa"
-                                required>
+                            <input type="text" id="nome" data-index="new" class="modal-field"
+                                placeholder="Nome do Caixa" required>
                             <input type="email" id="email" class="modal-field" placeholder="E-mail do Caixa" required>
                             <input type="text" id="senha" class="modal-field" placeholder="Senha do Caixa" required>
                             <!-- <input type="text" id="cidade" class="modal-field" placeholder="Franquia do Caixa" required> -->
                         </form>
                         <footer class="modal-footer">
                             <button id="salvar" onclick="cadastrarCaixa()" class="button green">Salvar</button>
-                            <button id="cancelar" class="button blue" onclick="fecharModalCadastro()" >Cancelar</button>
+                            <button id="cancelar" class="button blue" onclick="fecharModalCadastro()">Cancelar</button>
                         </footer>
                     </div>
                 </div>
@@ -100,24 +100,24 @@
                                     <canvas id="myChart2"></canvas>
                                 </div>
                             </div>
-                                
+
                             <div class="dashboards-group">
                                 <div class="dashboard">
                                     <canvas id="myChart3"></canvas>
                                 </div>
                             </div>
-                            
+
                             <div class="dashboards-group">
                                 <div class="dashboard">
                                     <canvas id="myChart"></canvas>
                                 </div>
                             </div>
-            
-                        <footer class="modal-footer">
-                            <button id="cancelarModal1" class="button  close" onclick="fecharModal()">
-                                Fechar
-                            </button>
-                        </footer>
+
+                            <footer class="modal-footer">
+                                <button id="cancelarModal1" class="button  close" onclick="fecharModal()">
+                                    Fechar
+                                </button>
+                            </footer>
                     </div>
                 </div>
 
@@ -128,69 +128,74 @@
                             <span class="modal-close" id="modalClose3" onclick="fecharModalEdit()">&#10006;</span>
                         </header>
                         <form id="form" class="modal-form">
-                            <input type="text" id="nomeFuncionario" data-index="new" class="modal-field" placeholder="Nome do Caixa"
+                            <input type="text" id="nomeFuncionario" data-index="new" class="modal-field"
+                                placeholder="Nome do Caixa" required>
+                            <input type="email" id="emailFuncionario" class="modal-field" placeholder="E-mail do Caixa"
                                 required>
-                            <input type="email" id="emailFuncionario" class="modal-field" placeholder="E-mail do Caixa" required>
-                            <input type="text" id="senhaFuncionario" class="modal-field" placeholder="Senha do Caixa" required>
+                            <input type="text" id="senhaFuncionario" class="modal-field" placeholder="Senha do Caixa"
+                                required>
                         </form>
                         <footer class="modal-footer">
                             <button id="salvarCaixa" onclick="atualizarCaixa()" class="button green">Salvar</button>
-                            <button id="cancelar" class="button blue" onclick="fecharModalEdit()" >Cancelar</button>
+                            <button id="cancelar" class="button blue" onclick="fecharModalEdit()">Cancelar</button>
                         </footer>
                     </div>
                 </div>
 
-                
-                </div>
-            </div>
 
-            <div class="footer">
-                <div class="mini_container footer_logo_container">
-                    <img src="../assets/img/Logos/footer_logo.png">
-                </div>
-                <div class="yellow_bar"></div>
-                <div class="mini_container social_media_container">
-                    <div class="links">
-                        <a id="link-logo" href="" class="link">
-                            <i class="fa-brands fa-facebook"></i>
-                            <span class="link_txt">/cloudfooding</span>
-                        </a>
-                        <a href="" class="link">
-                            <i class="fa-brands fa-instagram"></i>
-                            <span class="link_txt">@cloudfooding</span>
-                        </a>
-                        <a href="" class="link">
-                            <i class="fa-regular fa-envelope"></i>
-                            <span class="link_txt">contato@cloudfooding.com</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="yellow_bar"></div>
-                <div class="mini_container links_container">
-                    <div class="links">
-
-                        <a href="" class="link">
-                            <i class="fa-solid fa-users-line"></i>
-                            <span class="link_txt">Quem somos</span>
-                        </a>
-                        <a href="" class="link">
-                            <i class="fa-solid fa-book"></i>
-                            <span class="link_txt">Nossos produtos</span>
-                        </a>
-                        <a href="" class="link">
-                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                            <span class="link_txt">Cadastre-se ou entre</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="yellow_bar"></div>
-                <div class="mini_container copyrights_container">
-                    <span class="copyrights">Todos os direitos reservados.<br>
-                        © CloudStax, desde 2022</span>
-                </div>
             </div>
         </div>
-        <!-- Start of cloudstax Zendesk Widget script --><script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=2471cb75-988e-4e7a-ba40-83dd93e76760"> </script><!-- End of cloudstax Zendesk Widget script -->
+
+        <div class="footer">
+            <div class="mini_container footer_logo_container">
+                <img src="../assets/img/Logos/footer_logo.png">
+            </div>
+            <div class="yellow_bar"></div>
+            <div class="mini_container social_media_container">
+                <div class="links">
+                    <a id="link-logo" href="" class="link">
+                        <i class="fa-brands fa-facebook"></i>
+                        <span class="link_txt">/cloudfooding</span>
+                    </a>
+                    <a href="" class="link">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span class="link_txt">@cloudfooding</span>
+                    </a>
+                    <a href="" class="link">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span class="link_txt">contato@cloudfooding.com</span>
+                    </a>
+                </div>
+            </div>
+            <div class="yellow_bar"></div>
+            <div class="mini_container links_container">
+                <div class="links">
+
+                    <a href="" class="link">
+                        <i class="fa-solid fa-users-line"></i>
+                        <span class="link_txt">Quem somos</span>
+                    </a>
+                    <a href="" class="link">
+                        <i class="fa-solid fa-book"></i>
+                        <span class="link_txt">Nossos produtos</span>
+                    </a>
+                    <a href="" class="link">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <span class="link_txt">Cadastre-se ou entre</span>
+                    </a>
+                </div>
+            </div>
+            <div class="yellow_bar"></div>
+            <div class="mini_container copyrights_container">
+                <span class="copyrights">Todos os direitos reservados.<br>
+                    © CloudStax, desde 2022</span>
+            </div>
+        </div>
+    </div>
+    <!-- Start of cloudstax Zendesk Widget script -->
+    <script id="ze-snippet"
+        src="https://static.zdassets.com/ekr/snippet.js?key=2471cb75-988e-4e7a-ba40-83dd93e76760"> </script>
+    <!-- End of cloudstax Zendesk Widget script -->
 </body>
 
 </html>
@@ -203,58 +208,134 @@
     var idVar;
     var vetor;
 
-function listarCaixas(){
-    fetch("/usuarios/listarCaixas", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fkGerente: fkVar
-        })
-    }).then(function (resposta) {
-        console.log("resposta: ", resposta);
+    var countChar1 = 0;
+    var countChar2 = 0;
+    var countChar3 = 0;
 
-        if (resposta.ok) {
-            console.log("Funcionários listados com sucesso");
-            resposta.json().then(json => {
-                console.log("json: ", json);
-                console.log("json.stringify: ", JSON.stringify(json));
-                vetor = json;
-                console.log("vetor: ", vetor)
-                console.log("vetor.length: ", vetor.length)
-                adicionarTable();
-                
-            });
-        } else {
-            throw ("Houve um erro ao tentar listar os caixas!");
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-    });
-return false;
-}
+    function buscarUltimasMedidasRam(fk_funcionario) {
+        fetch("/dashboard/buscarUltimasMedidasRam/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idFuncionario: +fk_funcionario
+            })
+        }).then(res => {
+            if (res.ok) {
+                console.log("AMIGO ESTOU AQUI")
+                console.log('res', res)
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        console.log('json', json)
+                        json.forEach(ram => {
+                            myChart.data.labels.push(countChar1++)
+                            myChart.data.datasets[0].data.push(ram.uso / 1024 / 1024)
+                        })
+                        myChart.update()
+
+
+                    }).catch(err => {
+                        console.log("Erro no amigo estou aqui", err)
+                    })
+                }
+            }
+        }).catch(err => {
+            console.log("err", err)
+            console.log("Não foi possivel retornar os ultimos dados de ram")
+        })
+
+        setTimeout(() => atualizarMedidasRam(fk_funcionario), 3000)
+    }
+
+
+
+    function atualizarMedidasRam(fk_funcionario) {
+        fetch("/dashboard/buscarMedidasRamTempoReal/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idFuncionario: +fk_funcionario
+            })
+        }).then(res => {
+            if (res.ok) {
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        myChart.data.labels.shift();
+                        myChart.data.labels.push(countChar1++)
+                        myChart.data.datasets[0].data.shift();
+                        myChart.data.datasets[0].data.push(json[0].uso / 1024 / 1024)
+                        myChart.update()
+
+                        setTimeout(() => atualizarMedidasRam(+fk_funcionario), 3000)
+                    }).catch(err => {
+                        console.log("Erro no amigo estou aqui", err)
+                    })
+                }
+            }
+        }).catch(err => {
+            console.log("err", err)
+            console.log("Não foi possivel retornar os ultimos dados de ram")
+            setTimeout(() => atualizarMedidasRam(+fk_funcionario), 3000)
+        })
+
+    }
+
+    function listarCaixas() {
+        fetch("/usuarios/listarCaixas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkGerente: fkVar
+            })
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("Funcionários listados com sucesso");
+                resposta.json().then(json => {
+                    console.log("json: ", json);
+                    console.log("json.stringify: ", JSON.stringify(json));
+                    vetor = json;
+                    console.log("vetor: ", vetor)
+                    console.log("vetor.length: ", vetor.length)
+                    adicionarTable();
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar listar os caixas!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+        return false;
+    }
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+            labels: [],
             datasets: [{
                 label: 'Ram',
-                data: [12, 19, 3, 5, 2, 3],
+                data: [],
                 backgroundColor: [
-                'rgb(255, 183, 0)'
-                    
+                    'rgb(255, 183, 0)'
+
                 ],
                 borderColor: [
-                'rgb(255, 183, 0)'
-                    
+                    'rgb(255, 183, 0)'
+
                 ],
                 borderWidth: 1
             }]
         },
         options: {
+            animation: { duration: 500 },
             scales: {
                 y: {
                     beginAtZero: true
@@ -267,15 +348,15 @@ return false;
     var myChart2 = new Chart(ctx2, {
         type: 'line',
         data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+            labels: [],
             datasets: [{
                 label: 'Desempenho',
                 data: [12, 4, 3, 5, 2, 30],
                 backgroundColor: [
-                    'rgb(255, 106, 0)'  
+                    'rgb(255, 106, 0)'
                 ],
                 borderColor: [
-                    'rgb(255, 106, 0)'  
+                    'rgb(255, 106, 0)'
                 ],
                 borderWidth: 1
             }]
@@ -290,7 +371,7 @@ return false;
     });
 
     var ctx3 = document.getElementById('myChart3').getContext('2d');
-    var configuration3 = {  
+    var configuration3 = {
         type: 'line',
         data: {
             labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
@@ -299,11 +380,11 @@ return false;
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
                     'rgb(160, 0, 12)',
-                    
+
                 ],
                 borderColor: [
                     'rgb(160, 0, 12)',
-                    
+
                 ],
                 borderWidth: 1
             }]
@@ -331,14 +412,14 @@ return false;
                     'rgb(255, 183, 0)',
                     'rgb(255, 106, 0)',
                     'rgb(255, 106, 0)',
-                    
+
                 ],
                 borderColor: [
                     'rgb(160, 0, 12)',
                     'rgb(255, 183, 0)',
                     'rgb(255, 106, 0)',
                     'rgb(255, 106, 0)',
-                    
+
                 ],
                 borderWidth: 1
             }]
@@ -356,7 +437,7 @@ return false;
     var myChart5 = new Chart(ctx5, {
         type: 'bar',
         data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+            labels: [],
             datasets: [{
                 label: 'Ram',
                 data: [12, 19, 3],
@@ -364,13 +445,13 @@ return false;
                     'rgb(160, 0, 12)',
                     'rgb(255, 183, 0)',
                     'rgb(255, 106, 0)',
-                    
+
                 ],
                 borderColor: [
                     'rgb(160, 0, 12)',
                     'rgb(255, 183, 0)',
                     'rgb(255, 106, 0)',
-                    
+
                 ],
                 borderWidth: 1
             }]
@@ -386,10 +467,10 @@ return false;
 
 
 
-    function adicionarTable(){
+    function adicionarTable() {
         document.getElementById(`table0`).innerHTML = "";
-        for(i = 0; i < vetor.length; i++){
-                    document.getElementById(`table0`).innerHTML += `
+        for (i = 0; i < vetor.length; i++) {
+            document.getElementById(`table0`).innerHTML += `
                     <tr>
                         <th style="background-color: white;">${vetor[i].nomeFuncionario}</th>
                         <th style="background-color: white;">${vetor[i].emailFuncionario}</th>
@@ -398,37 +479,37 @@ return false;
                         <button type="button" class="button green" onclick="openEditModal('${vetor[i].idFuncionario}','${vetor[i].nomeFuncionario}','${vetor[i].emailFuncionario}','${vetor[i].senhaFuncionario}')">
                             Editar
                         </button>
-                        <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario})">Funcionário</button>
+                        <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario}),buscarUltimasMedidasRam(${vetor[i].idFuncionario})">Funcionário</button>
                         <button type="button" class="button red" onclick="deletarCaixa(${vetor[i].idFuncionario})">Deletar</button>
                         </td>
                     </tr>
                     `;
-                    console.log(`funcionario for: ${vetor[i].idFuncionario}`)
-                }
+            console.log(`funcionario for: ${vetor[i].idFuncionario}`)
+        }
     }
 
     //CRUD - Inicio
     //Cadastrar Caixas
     function cadastrarCaixa() {
 
-    var nomeVar = nome.value;
-    var emailVar = email.value;
-    var senhaVar = senha.value;
+        var nomeVar = nome.value;
+        var emailVar = email.value;
+        var senhaVar = senha.value;
 
-    if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+        if (nomeVar == "" || emailVar == "" || senhaVar == "") {
 
-        window.alert("Preencha todos os campos para prosseguir!");
-        if (nomeVar == "") {
-            console.log('nome está em branco')
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (nomeVar == "") {
+                console.log('nome está em branco')
+            }
+            if (emailVar == "") {
+                console.log('email está em branco')
+            }
+            if (senhaVar == "") {
+                console.log('confirmacaoSenha está em branco')
+            }
+            return false;
         }
-        if (emailVar == "") {
-            console.log('email está em branco')
-        }
-        if (senhaVar == "") {
-            console.log('confirmacaoSenha está em branco')
-        }
-        return false;
-    }
 
         fetch("/usuarios/cadastrarCaixa", {
             method: "POST",
@@ -456,7 +537,7 @@ return false;
             console.log(`#ERRO: ${resposta}`);
         });
 
-    return false;
+        return false;
     }
 
     function deletarCaixa(idCaixa) {
