@@ -9,14 +9,18 @@ function fecharModal() {
     .classList.remove('active')
 }
 
-function abrirModalGrafico() {
+function abrirModalGrafico(idFuncionario, nomeFuncionario) {
+    sessionStorage.ID_FUNCIONARIO = idFuncionario;
+    document.getElementById('desempenho-caixa').innerHTML = `Desempenho Caixa - ${nomeFuncionario}`
     let modal = document.getElementById('modalFuncionario')
     .classList.add('active')
 }
 
 function fecharModalGrafico() {
+    sessionStorage.ID_FUNCIONARIO = null;
     let modal = document.getElementById('modalFuncionario')
     .classList.remove('active')
+    location.reload()
 }
 
 function openEditModal(idFuncionario, nomeFuncionario, emailFuncionario, senhaFuncionario) {

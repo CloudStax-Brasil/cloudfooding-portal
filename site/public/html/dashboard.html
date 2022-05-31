@@ -16,7 +16,7 @@
 
 </head>
 
-<body onload="listarCaixas()">
+<body onload="listarCaixas(), loadDash()">
     <div class="main_container">
         <div class="header">
             <div class="header_logo">
@@ -42,7 +42,7 @@
                 </div><br><br>
                 <h2>Caixas</h2>
 
-                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal()">
+                <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal(), loadDash()">
                     Cadastrar Caixas
                 </button>
 
@@ -89,8 +89,8 @@
                 <div class="modal" id="modalFuncionario">
                     <div class="modal-content">
                         <header class="modal-header">
-                            <h2>Desempenho Caixa</h2>
-                            <span class="modal-close" id="modalClose1" onclick="fecharModalGrafico()">
+                            <h2 id="desempenho-caixa">Desempenho Caixa</h2>
+                            <span class="modal-close" id="modalClose1" onclick="fecharModalGrafico(), limparGrafico()">
                                 &#10006;
                             </span>
                         </header>
@@ -212,14 +212,17 @@
     var countChar2 = 0;
     var countChar3 = 0;
 
-    function buscarUltimasMedidasRam(fk_funcionario) {
+    var ctx, ctx2, ctx3, ctx4, ctx5;
+    var myChart, myChart2, myChart3, myChart4, myChart5;
+
+    function buscarUltimasMedidasRam() {
         fetch("/dashboard/buscarUltimasMedidasRam/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                idFuncionario: +fk_funcionario
+                idFuncionario: +sessionStorage.ID_FUNCIONARIO
             })
         }).then(res => {
             if (res.ok) {
@@ -245,17 +248,17 @@
             console.log("Não foi possivel retornar os ultimos dados de ram")
         })
 
-        setTimeout(() => atualizarMedidasRam(fk_funcionario), 3000)
+        setTimeout(() => atualizarMedidasRam(), 3000)
     }
 
-    function buscarUltimasMedidasCpu(fk_funcionario) {
+    function buscarUltimasMedidasCpu() {
         fetch("/dashboard/buscarUltimasMedidasCPU/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                idFuncionario: +fk_funcionario
+                idFuncionario: +sessionStorage.ID_FUNCIONARIO
             })
         }).then(res => {
             if (res.ok) {
@@ -281,18 +284,18 @@
             console.log("Não foi possivel retornar os ultimos dados de ram")
         })
 
-        setTimeout(() => atualizarMedidasCPU(fk_funcionario), 3000)
+        setTimeout(() => atualizarMedidasCPU(), 3000)
     }
 
 
-    function atualizarMedidasRam(fk_funcionario) {
+    function atualizarMedidasRam() {
         fetch("/dashboard/buscarMedidasRamTempoReal/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                idFuncionario: +fk_funcionario
+                idFuncionario: +sessionStorage.ID_FUNCIONARIO
             })
         }).then(res => {
             if (res.ok) {
@@ -304,7 +307,7 @@
                         myChart.data.datasets[0].data.push(json[0].uso / 1024 / 1024/ 1024)
                         myChart.update()
 
-                        setTimeout(() => atualizarMedidasRam(+fk_funcionario), 3000)
+                        setTimeout(() => atualizarMedidasRam(+sessionStorage.ID_FUNCIONARIO), 3000)
                     }).catch(err => {
                         console.log("Erro no amigo estou aqui", err)
                     })
@@ -313,19 +316,19 @@
         }).catch(err => {
             console.log("err", err)
             console.log("Não foi possivel retornar os ultimos dados de ram")
-            setTimeout(() => atualizarMedidasRam(+fk_funcionario), 3000)
+            setTimeout(() => atualizarMedidasRam(+sessionStorage.ID_FUNCIONARIO), 3000)
         })
 
     }
 
-    function atualizarMedidasCPU(fk_funcionario) {
+    function atualizarMedidasCPU() {
         fetch("/dashboard/buscarMedidasCPUTempoReal/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                idFuncionario: +fk_funcionario
+                idFuncionario: +sessionStorage.ID_FUNCIONARIO
             })
         }).then(res => {
             if (res.ok) {
@@ -337,7 +340,7 @@
                         myChart3.data.datasets[0].data.push(json[0].uso)
                         myChart3.update()
 
-                        setTimeout(() => atualizarMedidasCPU(+fk_funcionario), 3000)
+                        setTimeout(() => atualizarMedidasCPU(+sessionStorage.ID_FUNCIONARIO), 3000)
                     }).catch(err => {
                         console.log("Erro no amigo estou aqui", err)
                     })
@@ -346,7 +349,7 @@
         }).catch(err => {
             console.log("err", err)
             console.log("Não foi possivel retornar os ultimos dados de ram")
-            setTimeout(() => atualizarMedidasCPU(+fk_funcionario), 3000)
+            setTimeout(() => atualizarMedidasCPU(+sessionStorage.ID_FUNCIONARIO), 3000)
         })
 
     }
@@ -384,157 +387,158 @@
         return false;
     }
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Ram',
-                data: [],
-                backgroundColor: [
-                    'rgb(255, 183, 0)'
+    function loadDash(){
 
-                ],
-                borderColor: [
-                    'rgb(255, 183, 0)'
+        ctx = document.getElementById('myChart').getContext('2d');
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Ram',
+                    data: [],
+                    backgroundColor: [
+                        'rgb(255, 183, 0)'
 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            animation: { duration: 500 },
-            scales: {
-                y: {
-                    beginAtZero: true
+                    ],
+                    borderColor: [
+                        'rgb(255, 183, 0)'
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                animation: { duration: 500 },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
 
-    var ctx3 = document.getElementById('myChart3').getContext('2d');
-    var myChart3 = new Chart(ctx3, {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'CPU',
-                data: [],
-                backgroundColor: [
-                    'rgb(160, 0, 12)'
+        ctx3 = document.getElementById('myChart3').getContext('2d');
+        myChart3 = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'CPU',
+                    data: [],
+                    backgroundColor: [
+                        'rgb(160, 0, 12)'
 
-                ],
-                borderColor: [
-                    'rgb(160, 0, 12)'
+                    ],
+                    borderColor: [
+                        'rgb(160, 0, 12)'
 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            animation: { duration: 500 },
-            scales: {
-                y: {
-                    beginAtZero: true
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                animation: { duration: 500 },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
 
-    var ctx2 = document.getElementById('myChart2').getContext('2d');
-    var myChart2 = new Chart(ctx2, {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Desempenho',
-                data: [12, 4, 3, 5, 2, 30],
-                backgroundColor: [
-                    'rgb(255, 106, 0)'
-                ],
-                borderColor: [
-                    'rgb(255, 106, 0)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        ctx2 = document.getElementById('myChart2').getContext('2d');
+        myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Desempenho',
+                    data: [12, 4, 3, 5, 2, 30],
+                    backgroundColor: [
+                        'rgb(255, 106, 0)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 106, 0)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
 
-    var ctx4 = document.getElementById('myChart4').getContext('2d');
-    var myChart4 = new Chart(ctx4, {
-        type: 'bar',
-        data: {
-            labels: ['Funcionario 1', 'Funcionario 2', 'Funcionario 3', 'Funcionario 3',],
-            datasets: [{
-                label: '# of Votes',
-                data: [25, 19, 8, 15],
-                backgroundColor: [
-                    'rgb(160, 0, 12)',
-                    'rgb(255, 183, 0)',
-                    'rgb(255, 106, 0)',
-                    'rgb(255, 106, 0)',
+        ctx4 = document.getElementById('myChart4').getContext('2d');
+        myChart4 = new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: ['Funcionario 1', 'Funcionario 2', 'Funcionario 3', 'Funcionario 3',],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [25, 19, 8, 15],
+                    backgroundColor: [
+                        'rgb(160, 0, 12)',
+                        'rgb(255, 183, 0)',
+                        'rgb(255, 106, 0)',
+                        'rgb(255, 106, 0)',
 
-                ],
-                borderColor: [
-                    'rgb(160, 0, 12)',
-                    'rgb(255, 183, 0)',
-                    'rgb(255, 106, 0)',
-                    'rgb(255, 106, 0)',
+                    ],
+                    borderColor: [
+                        'rgb(160, 0, 12)',
+                        'rgb(255, 183, 0)',
+                        'rgb(255, 106, 0)',
+                        'rgb(255, 106, 0)',
 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
+        });
 
-    var ctx5 = document.getElementById('myChart5').getContext('2d');
-    var myChart5 = new Chart(ctx5, {
-        type: 'bar',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Ram',
-                data: [12, 19, 3],
-                backgroundColor: [
-                    'rgb(160, 0, 12)',
-                    'rgb(255, 183, 0)',
-                    'rgb(255, 106, 0)',
+        ctx5 = document.getElementById('myChart5').getContext('2d');
+        myChart5 = new Chart(ctx5, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Ram',
+                    data: [12, 19, 3],
+                    backgroundColor: [
+                        'rgb(160, 0, 12)',
+                        'rgb(255, 183, 0)',
+                        'rgb(255, 106, 0)',
 
-                ],
-                borderColor: [
-                    'rgb(160, 0, 12)',
-                    'rgb(255, 183, 0)',
-                    'rgb(255, 106, 0)',
+                    ],
+                    borderColor: [
+                        'rgb(160, 0, 12)',
+                        'rgb(255, 183, 0)',
+                        'rgb(255, 106, 0)',
 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-
-
+        });                   
+    }
 
     function adicionarTable() {
         document.getElementById(`table0`).innerHTML = "";
@@ -548,7 +552,7 @@
                         <button type="button" class="button green" onclick="openEditModal('${vetor[i].idFuncionario}','${vetor[i].nomeFuncionario}','${vetor[i].emailFuncionario}','${vetor[i].senhaFuncionario}')">
                             Editar
                         </button>
-                        <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario}),buscarUltimasMedidasRam(${vetor[i].idFuncionario}),buscarUltimasMedidasCpu(${vetor[i].idFuncionario})">Funcionário</button>
+                        <button type="button" class="button blue" onclick="abrirModalGrafico('${vetor[i].idFuncionario}', '${vetor[i].nomeFuncionario}'),buscarUltimasMedidasRam(${vetor[i].idFuncionario}),buscarUltimasMedidasCpu(${vetor[i].idFuncionario})">Funcionário</button>
                         <button type="button" class="button red" onclick="deletarCaixa(${vetor[i].idFuncionario})">Deletar</button>
                         </td>
                     </tr>
