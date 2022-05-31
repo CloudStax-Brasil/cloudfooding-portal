@@ -248,6 +248,41 @@
         setTimeout(() => atualizarMedidasRam(fk_funcionario), 3000)
     }
 
+    function buscarUltimasMedidasCpu(fk_funcionario) {
+        fetch("/dashboard/buscarUltimasMedidasCPU/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idFuncionario: +fk_funcionario
+            })
+        }).then(res => {
+            if (res.ok) {
+                console.log("AMIGO ESTOU AQUI")
+                console.log('res', res)
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        console.log('json', json)
+                        json.forEach(cpu => {
+                            myChart3.data.labels.push(countChar2++)
+                            myChart3.data.datasets[0].data.push(cpu.uso)
+                        })
+                        myChart3.update()
+
+
+                    }).catch(err => {
+                        console.log("Erro no amigo estou aqui", err)
+                    })
+                }
+            }
+        }).catch(err => {
+            console.log("err", err)
+            console.log("Não foi possivel retornar os ultimos dados de ram")
+        })
+
+        setTimeout(() => atualizarMedidasCPU(fk_funcionario), 3000)
+    }
 
 
     function atualizarMedidasRam(fk_funcionario) {
@@ -266,7 +301,7 @@
                         myChart.data.labels.shift();
                         myChart.data.labels.push(countChar1++)
                         myChart.data.datasets[0].data.shift();
-                        myChart.data.datasets[0].data.push(json[0].uso / 1024 / 1024)
+                        myChart.data.datasets[0].data.push(json[0].uso / 1024 / 1024/ 1024)
                         myChart.update()
 
                         setTimeout(() => atualizarMedidasRam(+fk_funcionario), 3000)
@@ -282,6 +317,40 @@
         })
 
     }
+
+    function atualizarMedidasCPU(fk_funcionario) {
+        fetch("/dashboard/buscarMedidasCPUTempoReal/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idFuncionario: +fk_funcionario
+            })
+        }).then(res => {
+            if (res.ok) {
+                if (res.status === 200) {
+                    res.json().then(json => {
+                        myChart3.data.labels.shift();
+                        myChart3.data.labels.push(countChar2++)
+                        myChart3.data.datasets[0].data.shift();
+                        myChart3.data.datasets[0].data.push(json[0].uso)
+                        myChart3.update()
+
+                        setTimeout(() => atualizarMedidasCPU(+fk_funcionario), 3000)
+                    }).catch(err => {
+                        console.log("Erro no amigo estou aqui", err)
+                    })
+                }
+            }
+        }).catch(err => {
+            console.log("err", err)
+            console.log("Não foi possivel retornar os ultimos dados de ram")
+            setTimeout(() => atualizarMedidasCPU(+fk_funcionario), 3000)
+        })
+
+    }
+
 
     function listarCaixas() {
         fetch("/usuarios/listarCaixas", {
@@ -344,6 +413,35 @@
         }
     });
 
+    var ctx3 = document.getElementById('myChart3').getContext('2d');
+    var myChart3 = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'CPU',
+                data: [],
+                backgroundColor: [
+                    'rgb(160, 0, 12)'
+
+                ],
+                borderColor: [
+                    'rgb(160, 0, 12)'
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            animation: { duration: 500 },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
     var ctx2 = document.getElementById('myChart2').getContext('2d');
     var myChart2 = new Chart(ctx2, {
         type: 'line',
@@ -369,35 +467,6 @@
             }
         }
     });
-
-    var ctx3 = document.getElementById('myChart3').getContext('2d');
-    var configuration3 = {
-        type: 'line',
-        data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-            datasets: [{
-                label: 'CPU',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgb(160, 0, 12)',
-
-                ],
-                borderColor: [
-                    'rgb(160, 0, 12)',
-
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-    var myChart3 = new Chart(ctx3, configuration3)
 
     var ctx4 = document.getElementById('myChart4').getContext('2d');
     var myChart4 = new Chart(ctx4, {
@@ -479,7 +548,7 @@
                         <button type="button" class="button green" onclick="openEditModal('${vetor[i].idFuncionario}','${vetor[i].nomeFuncionario}','${vetor[i].emailFuncionario}','${vetor[i].senhaFuncionario}')">
                             Editar
                         </button>
-                        <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario}),buscarUltimasMedidasRam(${vetor[i].idFuncionario})">Funcionário</button>
+                        <button type="button" class="button blue" onclick="abrirModalGrafico(${vetor[i].idFuncionario}),buscarUltimasMedidasRam(${vetor[i].idFuncionario}),buscarUltimasMedidasCpu(${vetor[i].idFuncionario})">Funcionário</button>
                         <button type="button" class="button red" onclick="deletarCaixa(${vetor[i].idFuncionario})">Deletar</button>
                         </td>
                     </tr>
