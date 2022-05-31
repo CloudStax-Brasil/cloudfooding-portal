@@ -24,6 +24,28 @@
         #fea221
         );
 }
+.graph {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 45%;
+    height: 35vh;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 8px;
+    padding-left: 1px;
+  }
+
+  .yellow {
+    background-color: #e2cb00;
+  }
+  
+  .green {
+    background-color: #4caf50;
+  }
+  .red {
+    background-color: #f44336;
+  }
 
 .dashboard{
     width: 100%;  
@@ -46,6 +68,7 @@
     width: 30%;
     margin: 2vh;
     float: left;
+    margin-left: 100px;
 }
 
 .dashboards-group2{

@@ -32,15 +32,30 @@
         </div>
         <div class="body_content">
             <div class="center">
-
-
                 <div class="dashboards-group2">
                     <h2>Comparativo de Desempenho</h2>
                     <div class="dashboard">
                         <canvas id="myChart4"></canvas>
                     </div>
-                </div><br><br>
+                </div>
                 <h2>Caixas</h2>
+                <div class="graph">
+                    <div class="box red">
+                      <h1>7-8</h1>
+                      <h3>RAM</h3>
+                      <p>MUITO USO DE RAM</p>
+                    </div>
+                    <div class="box yellow">
+                      <h1>0-3</h1>
+                      <h3>RAM</h3>
+                      <p>USO DE RAM MUITO ABAIXO</p>
+                    </div>
+                    <div class="box green">
+                      <h1>4-6</h1>
+                      <h3>RAM</h3>
+                      <p>IDEAL USO DE RAM</p>
+                    </div>
+                  </div>
 
                 <button type="button" class="button blue mobile" id="cadastrarCliente" onclick="abrirModal(), loadDash()">
                     Cadastrar Caixas
@@ -80,7 +95,7 @@
                             <!-- <input type="text" id="cidade" class="modal-field" placeholder="Franquia do Caixa" required> -->
                         </form>
                         <footer class="modal-footer">
-                            <button id="salvar" onclick="cadastrarCaixa()" class="button green">Salvar</button>
+                            <button id="salvar" onclick="cadastrarCaixa(), a()" class="button green">Salvar</button>
                             <button id="cancelar" class="button blue" onclick="fecharModalCadastro()">Cancelar</button>
                         </footer>
                     </div>
@@ -95,11 +110,6 @@
                             </span>
                         </header>
                         <form id="form" class="modal-form">
-                            <div class="dashboards-group">
-                                <div class="dashboard">
-                                    <canvas id="myChart2"></canvas>
-                                </div>
-                            </div>
 
                             <div class="dashboards-group">
                                 <div class="dashboard">
@@ -287,6 +297,7 @@
         setTimeout(() => atualizarMedidasCPU(), 3000)
     }
 
+    var usoRAM;
 
     function atualizarMedidasRam() {
         fetch("/dashboard/buscarMedidasRamTempoReal/", {
@@ -305,7 +316,29 @@
                         myChart.data.labels.push(countChar1++)
                         myChart.data.datasets[0].data.shift();
                         myChart.data.datasets[0].data.push(json[0].uso / 1024 / 1024/ 1024)
+                        usoRAM = json[0].uso;
                         myChart.update()
+
+                        if(usoRAM < 4602442240) {
+                            console.log('eu to pequeno')
+                            document.getElementById('table0').style.backgroundColor="yellow"+sessionStorage.ID_FUNCIONARIO
+                            myChart4.update();
+                        }
+
+                        if(usoRAM >= 4602442240 && usoRAM < 6500400200) {
+                            console.log('to tranquilo')
+                            myChart4.data.labels = ['Funcionario2']
+                            myChart4.data.datasets[0].data.push(10);
+                            myChart4.update();
+                        }
+
+                        if(usoRAM > 6500400200) {
+                            console.log('estou muito grande')
+                            document.getElementById('table0').style.backgroundColor="red"
+                            myChart4.data.labels = ['Funcionario1']
+                            myChart4.data.datasets[0].data.push(10);
+                            myChart4.update();
+                        }
 
                         setTimeout(() => atualizarMedidasRam(+sessionStorage.ID_FUNCIONARIO), 3000)
                     }).catch(err => {
@@ -447,40 +480,15 @@
             }
         });
 
-        ctx2 = document.getElementById('myChart2').getContext('2d');
-        myChart2 = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Desempenho',
-                    data: [12, 4, 3, 5, 2, 30],
-                    backgroundColor: [
-                        'rgb(255, 106, 0)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 106, 0)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
 
         ctx4 = document.getElementById('myChart4').getContext('2d');
         myChart4 = new Chart(ctx4, {
             type: 'bar',
             data: {
-                labels: ['Funcionario 1', 'Funcionario 2', 'Funcionario 3', 'Funcionario 3',],
+                labels: ['Funcionario1', 'Funcionario2'],
                 datasets: [{
                     label: '# of Votes',
-                    data: [25, 19, 8, 15],
+                    data: [],
                     backgroundColor: [
                         'rgb(160, 0, 12)',
                         'rgb(255, 183, 0)',
@@ -561,6 +569,9 @@
         }
     }
 
+    const getLocalStorage = () => JSON.parse(localStorage.getItem('db_client')) ?? []
+    const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
+
     //CRUD - Inicio
     //Cadastrar Caixas
     function cadastrarCaixa() {
@@ -584,6 +595,7 @@
             return false;
         }
 
+
         fetch("/usuarios/cadastrarCaixa", {
             method: "POST",
             headers: {
@@ -600,7 +612,15 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
+                const dbClient = getLocalStorage()
+                i = 2;
+                i++
+               const funcionario = myChart4.data.labels.push('Funcionário: ' + i)
+                myChart4.update();
                 window.alert("Cadastro realizado com sucesso!");
+                dbClient.push(funcionario)
+                window.localStorage.setItem(funcionario);
+                setLocalStorage(dbClient)
                 location.reload();
                 fecharModal();
             } else {

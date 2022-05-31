@@ -18,9 +18,9 @@ function abrirModalGrafico(idFuncionario, nomeFuncionario) {
 
 function fecharModalGrafico() {
     sessionStorage.ID_FUNCIONARIO = null;
+    location.reload();
     let modal = document.getElementById('modalFuncionario')
     .classList.remove('active')
-    location.reload()
 }
 
 function openEditModal(idFuncionario, nomeFuncionario, emailFuncionario, senhaFuncionario) {
